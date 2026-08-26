@@ -119,6 +119,7 @@ app.use((req, res, next) => {
             "font-src": [
                 "'self'",
                 "https://maxcdn.bootstrapcdn.com",
+                "https://cdnjs.cloudflare.com",
                 "https://fonts.googleapis.com",
                 "https://stackpath.bootstrapcdn.com",
                 "https://fonts.gstatic.com",
