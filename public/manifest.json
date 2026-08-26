@@ -1,0 +1,39 @@
+{
+    "name": "MockMantra TimeTable",
+    "short_name": "m2t2",
+    "description": "M2T2 is a class schedule application for mockmantra.in , Build for teacher and student personal and instend class query tool.",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "1500x1500 16x16",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "logo1500.png",
+            "type": "image/png",
+            "sizes": "1500x1500"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#22577aff",
+    "background_color": "#ffffff",
+    "contact": "info.aidictionary24x7@gmail.com",
+    "developer": "Ai Dictionary",
+    "sample_profile": {
+        "id": "",
+        "name": "Krishnendu Mitra",
+        "gender": "Male",
+        "contact": "8478951792",
+        "email": "krishnendumitra24@gmail.com",
+        "pin": "700159",
+        "parent_name": "Dibyendu Mitra",
+        "relationship": "Father",
+        "parent_contact": "9674074062",
+        "class": "M.Tech",
+        "pass": "@Sait2025",
+        "signup_date": "22-08-2025",
+        "last_update": "22-08-2025",
+        "status": "active"
+    }
+}
