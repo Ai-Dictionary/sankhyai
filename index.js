@@ -220,7 +220,11 @@ app.get('/', async (req, res) => {
     const isHosted = hex.isHosted(req);
     const token = req.cookies.auth_token;
     
-    res.status(200).render('index',{nonce: nonce, isHosted});
+    res.status(200).sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/js/main.js', (req, res) => {
+    res.status(300).sendFile(path.join(__dirname, 'public', 'default.min.js'));
 });
 
 app.get('/varchar', (req, res) => {
