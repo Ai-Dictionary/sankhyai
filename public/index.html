@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="public/logo.png" name="og:image">
+  <meta content="Sankhy AI is a autonomus 
+    AI agent market place system using Deep learning 
+    and AI agents. Create your own AI agents or use  
+    prebuild ai agents or workflows, automate your
+    business." lang="en-us" name="description">
+  <meta content="SankhyaAI, sankhya, ai agent, ai agent market place, agent market, ai tools, project, JPEN, ai dictionary" lang="en-us" name="keywords">
+  <title version="1.0">Sankhy AI</title>
+  <meta name="author" content="aidictionary">
+  <link rel="icon" href="https://raw.githubusercontent.com/kidKrishkode/fundusguardai/main/public/favicon.ico" sizes="192x192">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="icon" href="public/favicon.ico"/>
+</head>
+<style>
+  body{
+    background-color: #e5ece3;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    background-color: #111;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 0px;
+    max-height: 100%;
+    overflow: hidden;
+    user-select: none;
+    zoom: 90%;
+  }
+  .grid-cell {
+    border: 1px solid #222;
+    background-color: #111;
+  }
+  #root{
+    grid-column: 4 / span 6;
+    grid-row: 3 / span 2;
+    padding: 20px;
+    color: slategray;
+    .under-development{
+      font-weight: bold;
+      color: #22577aff;
+      background: linear-gradient(90deg, #ffffff, silver, #3333ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 40px;
+    }
+    .btn{
+      margin-top: 40px;
+    }
+  }
+  .circle{
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    border-radius: 50%;
+    border: 1px solid grey;
+    backdrop-filter: blur(2px);
+  }
+  .circle-left{
+    top: -20%;
+    left: -10%;
+  }
+  .circle-right{
+    height: 150px;
+    width: 150px;
+    top: 0%;
+    right: 1%;
+  }
+  .circle-bottom{
+    width: 90%;
+    bottom: -40%;
+    left: 5%;
+  }
+  @media only screen and (max-width: 900px), only screen and (min-width: 900px) and (max-width: 1200px){
+    body {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+    }
+    #root{
+      grid-row: 2 / span 2;
+    }
+    .circle{
+      height: 200px;
+      width: 200px;
+    }
+    .circle-bottom{
+      bottom: -20%;
+      width: 95%;
+      left: 2.5%;
+    }
+    .circle-right{
+      width: 50px;
+      height: 50px;
+    }
+  }
+  /* Desktop view */
+  @media only screen and (min-width: 481px) and (max-width: 767px) {
+    body{
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <noscript>Sorry, our server not responce!</noscript>
+  <div id="root">
+    <div class="under-development">Under Development</div>
+    <div id="countdown" style="font-weight: bold; margin-top: 20px;"></div>
+    <div class="btn btn-dark" onclick="insta();"><i class="fa fa-instagram"></i> Visite our page</div>
+    <div class="btn btn-outline-dark" onclick="login();"><i class="fa fa-user-secret"></i> Login your account</div>
+  </div>
+  <div class="circle circle-left"></div>
+  <div class="circle circle-right"></div>
+  <div class="circle circle-bottom"></div>
+
+<script src="/js/main.js"></script>
+
+</body>
+</html>
