@@ -62,7 +62,7 @@ const limiter = rateLimit({
 
 app.use((req, res, next) => {
     res.locals.nonce = crypto.randomBytes(16).toString('base64');
-    res.locals.isAppRequest = (req.headers['x-from-app'] === 'm2t2' || req.query.token == '24fc8akm8o4s');
+    res.locals.isAppRequest = (req.headers['x-from-app'] === 'sankhyai' || req.query.token == '24fc8akm8o4s');
     next();
 });
 
@@ -218,10 +218,10 @@ app.use(async (req, res, next) => {
 app.get('/', async (req, res) => {
     const nonce = res.locals.nonce;
     const isHosted = hex.isHosted(req);
-    const token = req.cookies.auth_token;
     
-    res.status(200).sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.status(200).render('index',{nonce: nonce, isHosted});
 });
+
 
 app.get('/js/main.js', (req, res) => {
     res.status(300).sendFile(path.join(__dirname, 'public', 'default.min.js'));
