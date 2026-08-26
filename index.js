@@ -109,6 +109,7 @@ app.use((req, res, next) => {
             "style-src": [
                 "'self'",
                 "https://fonts.googleapis.com",
+                "https://cdnjs.cloudflare.com",
                 "https://maxcdn.bootstrapcdn.com",
                 "https://stackpath.bootstrapcdn.com",
                 "https://ai-dictionary.github.io",
@@ -118,6 +119,7 @@ app.use((req, res, next) => {
             "font-src": [
                 "'self'",
                 "https://maxcdn.bootstrapcdn.com",
+                "https://fonts.googleapis.com",
                 "https://stackpath.bootstrapcdn.com",
                 "https://fonts.gstatic.com",
                 "data:"
@@ -128,7 +130,7 @@ app.use((req, res, next) => {
                 "https://maxcdn.bootstrapcdn.com",
                 "wss://ws-us3.pusher.com",
                 "https://ws-us3.pusher.com",
-                "https://chsapi.vercel.app",
+                "https://m2t2.vercel.app",
                 "http://127.0.0.1:6100",
             ],
             "frame-ancestors": frameSources
