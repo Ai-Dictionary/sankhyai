@@ -1,0 +1,13 @@
+[
+    {"code": 0, "message": ""},
+    {"code": 1, "message": "Unable to retrieve data from the cloud at this time. Please try again later or report it!"},
+    {"code": 2, "message": "Unable to save data to the cloud due to an internal error. Please check your input and try again, or contact support if the issue persists"},
+    {"code": 3, "message": "No matching record found with the provided ID. Please verify the ID and try again, may possible the provided ID is not exist in the records or blocked"},
+    {"code": 4, "message": "Unable to delete the record due to an internal error. Please try again later or contact support if the problem continues"},
+    {"code": 5, "message": "Update failed! The specified field or ID attribute was not found in the records. Please ensure the attribute names are correct and try again"},
+    {"code": 6, "message": "Oops! Something went wrong during the update. Please try again later or contact support if the issue persists"},
+    {"code": 7, "message": "Duplicate entry detected! A record with the same email or other credentials already exists in the records. Please verify the data and try again with unique authentications. You may try with <ul><li>Use another email id</li><li>Use another contact number</li><li>or Change your user type</li></ul> After change the above details try 1 min later for this feature."},
+    {"code": 8, "message": "Update failed! define attribute already have the same value which want to update with it, Please verify the the data and try again"},
+    {"code": 9, "message": "The access token you provided is incorrect or unauthorized. Please double-check the token and try again. If you're unsure about your token, kindly contact an authorized admin to obtain a valid one. Without a proper access token, your admin profile cannot be created."},
+    {"code": 10, "message": "The Password you provided is incorrect or unauthorized. Please double-check the password and try again. If you're unsure about your password, kindly contact an authorized admin to get it or simply check your register email id where your password is sended on time of registration."}
+]
