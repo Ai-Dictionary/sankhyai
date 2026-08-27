@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sankhyai by Mockmantra - Master Tech & Academics with Industry Mentors. Live online courses in AI, Backend, Python, and Competitive Academics.">
+    <meta name="keywords" content="Sankhyai, Mockmantra, EdTech, AI Courses, Backend Development, Python, JEE Mathematics, Physics">
+    <meta property="og:title" content="sankhyai">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico" name="og:image">
+    <meta itemprop="image" content="https://sankhyai.vercel.app/public/logo1500.png">
+    <meta property="og:site_name" content="sankhyai">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="sankhyai">
+    <title version="1.0">Sankhy AI - Student Registry</title>
+    <meta name="author" content="Ai-Dictionary">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <% if (isHosted) { %>
+        <link rel="stylesheet" href="https://ai-dictionary.github.io/sankhyai/assets/styles/studentRegistry.css"/>
+    <% } else { %>
+        <link rel="stylesheet" href="../assets/styles/studentRegistry.css"/>
+    <% } %>
+</head>
+<body>
+
+    <div id="user_raw_data" style="display:none;"><%= JSON.stringify(students) %></div>
+
+    <div class="dashboard-container">
+        <header class="header">
+            <div class="brand-title">
+                <h1>Sankhy<span>.</span>ai Student Registry</h1>
+                <div class="sub-tag">Powered by Mockmantra Operations</div>
+            </div>
+        </header>
+
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-info">
+                    <p>Total Registered</p>
+                    <h3 id="metric-total">0</h3>
+                </div>
+                <div class="metric-icon icon-total"><i class="fa-solid fa-users"></i></div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-info">
+                    <p>Converted Students</p>
+                    <h3 id="metric-converted">0</h3>
+                </div>
+                <div class="metric-icon icon-converted"><i class="fa-solid fa-user-check"></i></div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-info">
+                    <p>Pending Follow-ups</p>
+                    <h3 id="metric-pending">0</h3>
+                </div>
+                <div class="metric-icon icon-pending"><i class="fa-solid fa-phone-slash"></i></div>
+            </div>
+        </section>
+
+        <section class="toolbar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Search by Name, Email, or WhatsApp..." oninput="applyFilters()">
+            </div>
+
+            <div class="filter-controls">
+                <select id="sort-select" class="select-control" onchange="applyFilters()">
+                    <option value="date-desc">Registration Date (Newest First)</option>
+                    <option value="date-asc">Registration Date (Oldest First)</option>
+                    <option value="name-asc">Name (A to Z)</option>
+                    <option value="name-desc">Name (Z to A)</option>
+                    <option value="converted-first">Converted First (Yes -> No)</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="table-card">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parent Name</th>
+                            <th>Contact (WhatsApp)</th>
+                            <th>Email</th>
+                            <th>State</th>
+                            <th>Class / Sem</th>
+                            <th>School / College</th>
+                            <th>Board / Univ</th>
+                            <th>Converted</th>
+                            <th>Called</th>
+                            <th>Status</th>
+                            <th>Reg. Date</th>
+                            <th>Last Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        </tbody>
+                </table>
+            </div>
+
+            <div class="mobile-cards" id="mobile-cards-container">
+                </div>
+        </section>
+    </div>
+<script nonce="<%= nonce %>">
+    window.isHosted = "<%= isHosted %>";
+</script>
+<% if (isHosted) { %>
+    <script src="https://ai-dictionary.github.io/sankhyai/assets/scripts/studentRegistry.js" nonce="<%= nonce %>"></script>
+<% } else { %>
+    <script src="../assets/scripts/studentRegistry.js" nonce="<%= nonce %>"></script>
+<% } %>
+</body>
+</html>
