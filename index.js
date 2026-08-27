@@ -248,6 +248,61 @@ app.get('/studentRegistry', async (req, res) => {
     res.status(200).render('studentRegistry',{nonce: nonce, isHosted, students});
 });
 
+app.post('/reg', (req, res) => {
+    try {
+        const {
+            studentName,
+            parentName,
+            phone,
+            email,
+            state,
+            classSem,
+            schoolCollege,
+            boardUniv,
+            preferredCourse
+        } = req.body;
+
+        if (!studentName || !phone || !email || !preferredCourse) {
+            return res.status(400).json({
+                success: false,
+                message: 'Missing required registration fields.'
+            });
+        }
+
+        const registrationRecord = {
+            name: studentName,
+            parentName: parentName || '',
+            contact: phone,
+            email: email,
+            state: state || '',
+            classSem: classSem || '',
+            schoolCollege: schoolCollege || '',
+            boardUniv: boardUniv || '',
+            preferredCourse: preferredCourse,
+            converted: false,
+            called: 'Pending',
+            status: 'Active',
+            dateOfRegistration: new Date().toISOString().split('T')[0],
+            dateOfModified: new Date().toISOString().split('T')[0]
+        };
+
+        console.log('New Registration Saved:', registrationRecord);
+
+        return res.status(200).json({
+            success: true,
+            message: 'Registration Successful! Our admission team will contact you shortly.',
+            data: registrationRecord
+        });
+
+    } catch (error) {
+        console.error('Error processing registration:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error while saving registration.'
+        });
+    }
+});
+
 
 
 app.all(/.*/, (req, res) => {
