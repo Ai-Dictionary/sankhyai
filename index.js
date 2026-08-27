@@ -240,6 +240,16 @@ app.post('/reg', (req, res) => {
     res.status(500).json({"status": 500, message: "Registration system is not connected yet, wait for next day"});
 });
 
+app.get('/studentRegistry', async (req, res) => {
+    const nonce = res.locals.nonce;
+    const isHosted = hex.isHosted(req);
+    const students = {};
+    
+    res.status(200).render('studentRegistry',{nonce: nonce, isHosted, students});
+});
+
+
+
 app.all(/.*/, (req, res) => {
     res.status(404).render('notfound',{nonce: res.locals.nonce, error: 404, message: "Page not found on this url, check the source or report it"});
 });
