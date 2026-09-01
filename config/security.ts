@@ -149,7 +149,67 @@ module.exports = {
         let key = 'chs'+left_key+right_key;
         return key;
     },
-    generateStudentId: (student) => {
+generateStudentId: (student) =>  {
+    const {
+        studentName = '',
+        name = '',
+        parentName = '',
+        parent_name = '',
+        email = '',
+        phone = '',
+        contact = '',
+        preferredCourse = ''
+    } = student;
+
+    const actualName = (studentName || name || 'Student').trim();
+    const actualParent = (parentName || parent_name || 'Parent').trim();
+    const actualEmail = email.trim() || 'xx';
+    const actualPhone = String(phone || contact || '0000000000');
+
+    const prefix = "AID";
+
+    // 1. First character of student name
+    const x = actualName[0] ? actualName[0].toUpperCase() : 'X';
+
+    // 2. Derive a single digit from course length or default
+    const y = preferredCourse ? String(preferredCourse.length % 10) : '0';
+
+    // 3. ASCII sum of first 2 email characters + last 3 digits of phone
+    const emailPrefix = (actualEmail.length >= 2 ? actualEmail.slice(0, 2) : actualEmail + 'x');
+    const asciiSum = emailPrefix.charCodeAt(0) + emailPrefix.charCodeAt(1);
+    const lastThreePhone = parseInt(actualPhone.slice(-3), 10) || 100;
+    const zzz = asciiSum + lastThreePhone;
+
+    // 4. Sum of all digits in contact/phone
+    const contactSum = actualPhone.split('').reduce((sum, char) => {
+        const digit = parseInt(char, 10);
+        return sum + (isNaN(digit) ? 0 : digit);
+    }, 0);
+    const n = contactSum.toString().slice(-1);
+
+    // 5. Parent ASCII representation (First char of first & last name)
+    const parentParts = actualParent.split(' ');
+    const parentFirst = parentParts[0] || 'P';
+    const parentLast = parentParts[parentParts.length - 1] || 'P';
+    const parentAsciiSum = parentFirst.charCodeAt(0) + parentLast.charCodeAt(0);
+    const p = parentAsciiSum.toString().slice(-1);
+
+    // 6. Current Date components (DD and Sum of YY)
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2, '0');
+    const yearStr = String(now.getFullYear()).slice(-2);
+    const yy = yearStr.split('').reduce((sum, digit) => sum + parseInt(digit, 10), 0).toString().padStart(2, '0');
+
+    // Combine calculated numeric/alphanumeric parts
+    const numericPart = `${x}${y}${zzz}${n}${p}${dd}${yy}`;
+
+    // Insert '@' at a random index
+    const atIndex = Math.floor(Math.random() * numericPart.length);
+    const idWithAt = numericPart.slice(0, atIndex) + "@" + numericPart.slice(atIndex);
+
+    return prefix + idWithAt;
+},
+    generateStudentIds: (student) => {
         const { name, dob, email, pin, contact, parent_name } = student;
 
         const prefix = "AID";
