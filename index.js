@@ -248,7 +248,7 @@ app.get('/studentRegistry', async (req, res) => {
     res.status(200).render('studentRegistry',{nonce: nonce, isHosted, students});
 });
 
-app.post('/reg', (req, res) => {
+app.post('/old/reg', (req, res) => {
     try {
         const {
             studentName,
@@ -300,6 +300,70 @@ app.post('/reg', (req, res) => {
             success: false,
             message: 'Internal server error while saving registration.'
         });
+    }
+});
+
+
+app.post('/reg', async (req, res) => {
+    try {
+        const {
+            studentName,
+            parentName,
+            phone,
+            email,
+            state,
+            classSem,
+            schoolCollege,
+            boardUniv,
+            preferredCourse
+        } = req.body;
+
+        if (!studentName || !phone || !email || !preferredCourse) {
+            return res.status(400).json({
+                success: false,
+                message: 'Missing required registration fields.'
+            });
+        }
+        
+        const memory = new MEMORY();
+        memory.clusterName = 'student'; 
+ 
+        const studentPayload = {
+            name: req.body.studentName,
+            parentName: req.body.parentName,
+            contact: req.body.phone,
+            email: req.body.email,
+            state: req.body.state,
+            classSem: req.body.classSem,
+            schoolCollege: req.body.schoolCollege,
+            boardUniv: req.body.boardUniv,
+            preferredCourse: req.body.preferredCourse,
+            converted: 'No',
+            called: 'Pending',
+            status: 'Active',
+            dateOfRegistration: new Date().toISOString().split('T')[0],
+            dateOfModified: new Date().toISOString().split('T')[0]
+        };
+
+        const result = await memory.write(studentPayload);
+
+        if (result.status === 7) {
+            return res.status(400).json({ success: false, message: 'Duplicate record found. Please try with new email or contact number.' });
+        }
+
+        if (result.status === 200) {
+          //  return res.status(200).json({ success: true, id: result.id });
+            return res.status(200).json({
+                success: true,
+                id: result.id,
+                message: 'Registration Successful! Our admission team will contact you shortly.',
+                data: studentPayload
+            });
+        }
+
+        return res.status(500).json({ success: false, message: 'Registration failed, some unwanted behaviour shown by google db.' });
+    } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
     }
 });
 
