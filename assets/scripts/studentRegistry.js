@@ -56,6 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Copied to clipboard: ' + text);
         }
 
+        function edit(feature){
+            alert("This feature is not provided yet, wait or contact developers.");
+        }
+
         // Filtering & Sorting Orchestrator
         function applyFilters() {
             const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
