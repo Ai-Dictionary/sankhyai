@@ -347,8 +347,7 @@ app.post('/reg', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Duplicate record found. Please try with new email or contact number.' });
         }
 
-        if (result.status === 200) {
-          //  return res.status(200).json({ success: true, id: result.id });
+        if (result?.id != null || result?.id != '' || result.status === 200) {
             return res.status(200).json({
                 success: true,
                 id: result.id,
