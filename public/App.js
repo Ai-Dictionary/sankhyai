@@ -164,7 +164,7 @@
 
         function showAlert(status, type, message='') {
             alertBox.style.display = 'block';
-            alertBox.textContent = `${status==undefined?message:status}`;
+            alertBox.textContent = status || message;
             if(type === 'success') {
                 alertBox.className = 'alert-box alert-success';
             } else {
@@ -229,15 +229,17 @@
                     body: JSON.stringify(formData)
                 });
 
+                let data = await response.json();
+
                 if (response.ok || response.status === 200) {
-                    showAlert(response.message, 'success');
+                    showAlert(data.message, 'success', "Registration Successful!");
                     form.reset();
                 } else {
-                    showAlert(response.message, 'error', 'Failed to submit registration. Please try again or contact support.');
+                    showAlert(data.message, 'error', 'Failed to submit registration. Please try again or contact support.');
                 }
             } catch (error) {
                 console.error('Submission Error:', error);
-                showAlert(response.message, 'error', 'Network error occurred. Please check your internet connection and try again.');
+                showAlert('Network error occurred. Please check your internet connection and try again.', 'error');
             } finally {
                 submitBtn.disabled = false;
                 btnText.textContent = 'Complete Registration';
