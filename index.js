@@ -321,7 +321,7 @@ app.post('/reg', async (req, res) => {
             });
         }
         
-        const memory = new MEMORY();
+        const memory = new Memory();
         memory.clusterName = 'student'; 
  
         const studentPayload = {
