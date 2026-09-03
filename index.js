@@ -356,9 +356,11 @@ app.post('/reg', async (req, res) => {
                 data: studentPayload
             });
         }
+        console.error('Error on db write:', result);
 
         return res.status(500).json({ success: false, message: 'Registration failed, some unwanted behaviour shown by google db.' });
     } catch (err) {
+        console.error('Error processing registration:', err);
         return res.status(500).json({ success: false, error: err.message });
     }
 });
