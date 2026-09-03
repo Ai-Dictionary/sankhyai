@@ -22,10 +22,6 @@ class MEMORY{
     */
     student_id;
     teacher_id;
-    master_id;
-    feedback_id;
-    relationship_id;
-    iem_id;
     public_key;
     clusterName;
     /**
@@ -47,7 +43,6 @@ class MEMORY{
     constructor (){
         this.student_id = process.env.STUDENT_ID || '';
         this.teacher_id = process.env.TEACHER_ID || '';
-        this.master_id = process.env.MASTER_ID || '';
         this.public_key = String(process.env.PUBLIC_KEY) || '';
         this.secret = security.substitutionDecoder(process.env.private_key, this.public_key).replace(/\\n/g, "\n") || '';
         this.email = security.substitutionDecoder(process.env.client_email, this.public_key) || '';
@@ -62,9 +57,6 @@ class MEMORY{
         }else if(this.clusterName=='teacher'){
             this.isUpdatable = true;
             return this.teacher_id;
-        }else if(this.clusterName=='master' || this.clusterName=='admin'){
-            this.isUpdatable = true;
-            return this.master_id;
         }else{
             return '';
         }
@@ -74,8 +66,6 @@ class MEMORY{
             return security.generateStudentId(data);
         }else if(this.clusterName=='teacher'){
             return security.generateTeacherId(data);
-        }else if(this.clusterName=='master' || this.clusterName=='admin'){
-            return security.generateAdminId(data);
         }else{
             return '';
         }
@@ -335,46 +325,6 @@ class MEMORY{
             return {"status": 1};
         }
     }
-    // async find_relation(id){
-    //     try{
-    //         const client = new JWT({
-    //             email: this.email,
-    //             key: this.secret,
-    //             scopes: this.scopes,
-    //         });
-
-    //         const doc = new GoogleSpreadsheet(this.relationship_id, client);
-    //         await doc.loadInfo();
-
-    //         const sheet = doc.sheetsByIndex[0];
-    //         await sheet.loadHeaderRow();
-
-    //         const rows = await sheet.getRows();
-
-    //         const matches = rows.filter(row => {
-    //             const rawId = row._rawData[sheet.headerValues.indexOf('id')];
-    //             if (!rawId) return false;
-    //             return id.startsWith('AID') ? rawId.split("-")[0] === id : rawId.split("-")[1] === id;
-    //         });
-
-    //         // console.log(matches);
-            
-    //         if (matches.length === 0) return { status: 3 };
-
-    //         const results = matches.map(row => {
-    //             const obj = {};
-    //             sheet.headerValues.forEach((key, i) => {
-    //                 obj[key] = row._rawData[i];
-    //             });
-    //             return obj;
-    //         });
-
-    //         return results;
-    //     }catch(e){
-    //         console.error("Error to finding specific relation by ID:", e);
-    //         return {"status": 1};
-    //     }
-    // }
     async find_relation(id, subject='') {
         try {
             const client = new JWT({
