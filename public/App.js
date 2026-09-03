@@ -164,7 +164,7 @@
 
         function showAlert(message, type) {
             alertBox.style.display = 'block';
-            alertBox.textContent = message;
+            alertBox.textContent = `${message} Err:type:: ${type}`;
             if(type === 'success') {
                 alertBox.className = 'alert-box alert-success';
             } else {
