@@ -113,9 +113,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${item.classSem || '-'}</td>
                     <td>${item.schoolCollege || '-'}</td>
                     <td>${item.boardUniv || '-'}</td>
-                    <td>${renderConvertedBadge(item.converted)}</td>
-                    <td>${renderCalledBadge(item.called)}</td>
-                    <td>${renderStatusBadge(item.status)}</td>
+                    <td>${item.preferredCourse || '-'}</td>
+                    <td>
+                        ${renderConvertedBadge(item.converted)}
+                        ${item.converted ? `<button class="copy-btn" onclick="edit('${item.converted}')"><i class="fa-regular fa-edit"></i></button>` : ''}
+                    </td>
+                    <td>
+                        ${renderCalledBadge(item.called)}
+                        ${item.called ? `<button class="copy-btn" onclick="edit('${item.called}')"><i class="fa-regular fa-edit"></i></button>` : ''}
+                    </td>
+                    <td>
+                        ${renderStatusBadge(item.status)}
+                        ${item.status ? `<button class="copy-btn" onclick="edit('${item.status}')"><i class="fa-regular fa-edit"></i></button>` : ''}
+                    </td>
                     <td>${item.dateOfRegistration || '-'}</td>
                     <td>${item.dateOfModified || '-'}</td>
                 `;
@@ -147,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div><span class="card-item-label">Email:</span> <span class="card-item-value">${item.email || '-'}</span></div>
                         <div><span class="card-item-label">State:</span> <span class="card-item-value">${item.state || '-'}</span></div>
                         <div><span class="card-item-label">Class/Sem:</span> <span class="card-item-value">${item.classSem || '-'}</span></div>
+                        <div><span class="card-item-label">Class/Sem:</span> <span class="card-item-value">${item.preferredCourse || '-'}</span></div>
                         <div><span class="card-item-label">Converted:</span> ${renderConvertedBadge(item.converted)}</div>
                         <div><span class="card-item-label">Called:</span> ${renderCalledBadge(item.called)}</div>
                         <div><span class="card-item-label">Reg. Date:</span> <span class="card-item-value">${item.dateOfRegistration || '-'}</span></div>
@@ -154,4 +165,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 container.appendChild(card);
             });
-                }
+        }
