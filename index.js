@@ -237,9 +237,20 @@ app.get('/varchar', (req, res) => {
 app.get('/studentRegistry', async (req, res) => {
     const nonce = res.locals.nonce;
     const isHosted = hex.isHosted(req);
-    const students = {};
-    
-    res.status(200).render('studentRegistry',{nonce: nonce, isHosted, students});
+    try{
+        const memory = new Memory();
+        memory.clusterName = 'student'; 
+
+        const data = await memory.read();
+
+        if(!(data?.status)){
+            res.status(200).render('studentRegistry',{nonce: nonce, isHosted, students: data});
+        }else{
+            res.status(404).render('studentRegistry',{nonce: nonce, isHosted, students: jsonfile.readFileSync('./config/error_log.json')[data.status]});
+        }
+    }catch(error){
+        res.status(500).render('studentRegistry',{nonce: nonce, isHosted, students: {}});
+    }
 });
 
 
