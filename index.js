@@ -234,12 +234,6 @@ app.get('/varchar', (req, res) => {
     res.status(200).json(varchar);
 });
 
-app.post('/reg', (req, res) => {
-    const clientIP = req.headers['x-forwarded-for'] || req.headers['x-vercel-forwarded-for'] || req.connection.remoteAddress || req.ip;
-    console.log("/reg route hitted by ", clientIP);
-    res.status(500).json({"status": 500, message: "Registration system is not connected yet, wait for next day"});
-});
-
 app.get('/studentRegistry', async (req, res) => {
     const nonce = res.locals.nonce;
     const isHosted = hex.isHosted(req);
@@ -305,6 +299,8 @@ app.post('/old/reg', (req, res) => {
 
 
 app.post('/reg', async (req, res) => {
+    const clientIP = req.headers['x-forwarded-for'] || req.headers['x-vercel-forwarded-for'] || req.connection.remoteAddress || req.ip;
+    console.log("/reg route hitted by ", clientIP);
     try {
         const {
             studentName,
