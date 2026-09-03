@@ -125,10 +125,10 @@ class MEMORY{
                 if(['rate', 'relationship'].includes(this.clusterName)){
                     return row._rawData[sheet.headerValues.indexOf('id')] === id;
                 }else{
-                    return (row._rawData[sheet.headerValues.indexOf('email')] === newData.email || 
-                            row._rawData[sheet.headerValues.indexOf('contact')] === newData.contact) || 
-                            row._rawData[sheet.headerValues.indexOf('id')].replace("@", "") === id.replace("@", "")) && 
-                            (row._rawData[sheet.headerValues.indexOf('preferredCourse')] === newData.preferredCourse);
+                    return  (row._rawData[sheet.headerValues.indexOf('email')] === newData.email ||
+                            row._rawData[sheet.headerValues.indexOf('contact')] === newData.contact) && 
+                            (row._rawData[sheet.headerValues.indexOf('id')].replace("@", "") !== id.replace("@", "")) && 
+                            (row._rawData[sheet.headerValues.indexOf('preferredCourse')] !== newData.preferredCourse);
                 }
             });
 
