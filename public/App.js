@@ -162,9 +162,9 @@
         const phoneRegex = /^[0-9]{10}$/;
         const textRegex = /^[A-Za-z0-9\s\-+,#@$&.:;!?]{5,250}$/;
 
-        function showAlert(message, type) {
+        function showAlert(status, type, message='') {
             alertBox.style.display = 'block';
-            alertBox.textContent = `${message} Err:type:: ${type}`;
+            alertBox.textContent = `${status==undefined?message:status}`;
             if(type === 'success') {
                 alertBox.className = 'alert-box alert-success';
             } else {
@@ -230,14 +230,14 @@
                 });
 
                 if (response.ok || response.status === 200) {
-                    showAlert('Registration Successful! Our admission team will contact you shortly.', 'success');
+                    showAlert(response.message, 'success');
                     form.reset();
                 } else {
-                    showAlert('Failed to submit registration. Please try again or contact support.', 'error');
+                    showAlert(response.message, 'error', 'Failed to submit registration. Please try again or contact support.');
                 }
             } catch (error) {
                 console.error('Submission Error:', error);
-                showAlert('Network error occurred. Please check your internet connection and try again.', 'error');
+                showAlert(response.message, 'error', 'Network error occurred. Please check your internet connection and try again.');
             } finally {
                 submitBtn.disabled = false;
                 btnText.textContent = 'Complete Registration';
