@@ -320,6 +320,22 @@ app.post('/reg', async (req, res) => {
     }
 });
 
+app.post('/update_profile_info', async (req, res) => {
+    let memory = new Memory();
+    if(String(req.body.id).startsWith('AID')){
+        memory.clusterName = 'student';
+    }else{
+        return res.status(400).json({success: false, message: 'User ID is not behave like a student id, please provide perfect ID.'});
+    }
+    
+    let confirmation = await memory.update_all({"id": req.body.id, "updates": req.body.update_info});
+    
+    if(confirmation?.status){
+        res.status(400).json({'success': false, 'status': confirmation.status, 'message': jsonfile.readFileSync('./config/error_log.json')[confirmation.status].message});
+    }else{
+        res.status(200).json({'success': true, 'message': 'Update successful in our records.'});
+    }
+});
 
 
 app.all(/.*/, (req, res) => {
