@@ -132,6 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     </td>
                     <td>${item.dateOfRegistration || '-'}</td>
                     <td>${item.dateOfModified || '-'}</td>
+                    <td>
+                        <button class="btn-action" onclick="openUpdateModal('${item.id}')">
+                               <i class="fa-solid fa-gear"></i> Options
+                         </button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -165,8 +170,126 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div><span class="card-item-label">Converted:</span> ${renderConvertedBadge(item.converted)}</div>
                         <div><span class="card-item-label">Called:</span> ${renderCalledBadge(item.called)}</div>
                         <div><span class="card-item-label">Reg. Date:</span> <span class="card-item-value">${item.dateOfRegistration || '-'}</span></div>
+                        <button class="btn-action" onclick="openUpdateModal('${item.id}')">
+                             <i class="fa-solid fa-gear"></i> Options
+                        </button>
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
+
+function toggleScheduleInput(value) {
+    const timeGroup = document.getElementById('scheduled-time-group');
+    if (value === 'Scheduled') {
+        timeGroup.style.display = 'flex';
+    } else {
+        timeGroup.style.display = 'none';
+    }
+}
+
+
+function openUpdateModal(studentId) {
+    const student = window.rawStudentsData.find(s => s.id === studentId);
+    if (!student) return alert("Student record not found!");
+
+    document.getElementById('edit-student-id').value = student.id;
+    document.getElementById('modalStudentId').textContent = "ID: " + student.id;
+    document.getElementById('modal-info').textContent = "Name: " + student.name +"Email: " + student.email;
+
+    // Set Converted Value
+    const isConverted = String(student.converted).toLowerCase() === 'true' || String(student.converted).toLowerCase() === 'yes';
+    document.getElementById('edit-converted').value = isConverted ? 'Yes' : 'No';
+
+    // Set Called Value
+    const calledVal = student.called || 'Pending';
+    if (calledVal.startsWith('Scheduled')) {
+        document.getElementById('edit-called').value = 'Scheduled';
+        toggleScheduleInput('Scheduled');
+        // Parse time if previously stored in format "Scheduled (YYYY-MM-DDTHH:MM)"
+        const timeMatch = calledVal.match(/\((.*?)\)/);
+        if (timeMatch) {
+            document.getElementById('edit-scheduled-time').value = timeMatch[1];
+        }
+    } else {
+        document.getElementById('edit-called').value = calledVal;
+        toggleScheduleInput(calledVal);
+    }
+
+    // Set Status Value
+    document.getElementById('edit-status').value = student.status || 'Active';
+
+    // Show Overlay
+    document.getElementById('updateModal').style.display = 'flex';
+}
+
+
+function closeUpdateModal() {
+    document.getElementById('updateModal').style.display = 'none';
+}
+
+
+async function saveRecordChanges() {
+    const studentId = document.getElementById('edit-student-id').value;
+    const converted = document.getElementById('edit-converted').value;
+    const calledStatus = document.getElementById('edit-called').value;
+    const scheduledTime = document.getElementById('edit-scheduled-time').value;
+    const status = document.getElementById('edit-status').value;
+
+    let finalCalledVal = calledStatus;
+    if (calledStatus === 'Scheduled') {
+        if (!scheduledTime) {
+            return alert("Please select a date and time for the scheduled follow-up.");
+        }
+        finalCalledVal = `Scheduled (${scheduledTime})`;
+    }
+
+    const payload = {
+        id: studentId,
+        converted: converted,
+        called: finalCalledVal,
+        status: status
+    };
+
+    const saveBtn = document.getElementById('save-btn');
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving...';
+
+    try {
+        const response = await fetch('/update_profile_info', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.status === 200 && result.success) {
+            alert('Student record updated successfully!');
+
+            // Update local memory data and re-render without page reload
+            const index = window.rawStudentsData.findIndex(s => s.id === studentId);
+            if (index !== -1) {
+                window.rawStudentsData[index].converted = converted;
+                window.rawStudentsData[index].called = finalCalledVal;
+                window.rawStudentsData[index].status = status;
+                window.rawStudentsData[index].dateOfModified = new Date().toISOString().split('T')[0];
+            }
+
+            applyFilters(); // Redraw UI
+            closeUpdateModal();
+        } else {
+            alert(`Error (${response.status}): \n${result.message || 'Failed to update student record, please check server logs for more details.'}`);
+        }
+    } catch (error) {
+        console.error('Update Error:', error);
+        alert('Network error occurred. Unable to process update request.');
+    } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Changes';
+    }
+}
+
+
