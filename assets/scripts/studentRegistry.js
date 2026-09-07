@@ -120,21 +120,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${item.preferredCourse || '-'}</td>
                     <td>
                         ${renderConvertedBadge(item.converted)}
-                        ${item.converted ? `<button class="copy-btn" onclick="edit('${item.converted}')"><i class="fa-regular fa-edit"></i></button>` : ''}
                     </td>
                     <td>
                         ${renderCalledBadge(item.called)}
-                        ${item.called ? `<button class="copy-btn" onclick="edit('${item.called}')"><i class="fa-regular fa-edit"></i></button>` : ''}
                     </td>
                     <td>
                         ${renderStatusBadge(item.status)}
-                        ${item.status ? `<button class="copy-btn" onclick="edit('${item.status}')"><i class="fa-regular fa-edit"></i></button>` : ''}
                     </td>
                     <td>${item.dateOfRegistration || '-'}</td>
                     <td>${item.dateOfModified || '-'}</td>
                     <td>
                         <button class="btn-action" onclick="openUpdateModal('${item.id}')">
                                <i class="fa-solid fa-edit"></i> Update
+                         </button>
+                         <button class="btn-action" onclick="edit()">
+                               <i class="fa-solid fa-trash"></i> Delete
                          </button>
                     </td>
                 `;
@@ -166,13 +166,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div><span class="card-item-label">Email:</span> <span class="card-item-value">${item.email || '-'}</span></div>
                         <div><span class="card-item-label">State:</span> <span class="card-item-value">${item.state || '-'}</span></div>
                         <div><span class="card-item-label">Class/Sem:</span> <span class="card-item-value">${item.classSem || '-'}</span></div>
-                        <div><span class="card-item-label">Class/Sem:</span> <span class="card-item-value">${item.preferredCourse || '-'}</span></div>
+                        <div><span class="card-item-label">Course:</span> <span class="card-item-value">${item.preferredCourse || '-'}</span></div>
                         <div><span class="card-item-label">Converted:</span> ${renderConvertedBadge(item.converted)}</div>
                         <div><span class="card-item-label">Called:</span> ${renderCalledBadge(item.called)}</div>
                         <div><span class="card-item-label">Reg. Date:</span> <span class="card-item-value">${item.dateOfRegistration || '-'}</span></div>
-                        <button class="btn btn-lg btn-action" onclick="openUpdateModal('${item.id}')">
-                             <i class="fa-solid fa-edit></i> Update
-                        </button>
+                        <div>
+                             <button class="btn-action" onclick="openUpdateModal('${item.id}')">
+                                  <i class="fa-solid fa-edit></i> Update
+                             </button>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
@@ -210,7 +212,7 @@ function openUpdateModal(studentId) {
 
     document.getElementById('edit-student-id').value = student.id;
     document.getElementById('modalStudentId').textContent = "ID: " + student.id;
-    document.getElementById('modal-info').textContent = "Name: " + student.name +"Email: " + student.email;
+    document.getElementById('model-info').innerText = "Name: " + student.name +"\nEmail: " + student.email+"\nCourse: " + student.preferredCourse;
 
     // Set Converted Value
    /* const isConverted = String(student.converted).toLowerCase() === 'true' || String(student.converted).toLowerCase() === 'yes';
