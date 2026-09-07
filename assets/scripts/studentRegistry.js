@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${item.dateOfModified || '-'}</td>
                     <td>
                         <button class="btn-action" onclick="openUpdateModal('${item.id}')">
-                               <i class="fa-solid fa-gear"></i> Options
+                               <i class="fa-solid fa-edit"></i> Update
                          </button>
                     </td>
                 `;
@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div><span class="card-item-label">Converted:</span> ${renderConvertedBadge(item.converted)}</div>
                         <div><span class="card-item-label">Called:</span> ${renderCalledBadge(item.called)}</div>
                         <div><span class="card-item-label">Reg. Date:</span> <span class="card-item-value">${item.dateOfRegistration || '-'}</span></div>
-                        <button class="btn-action" onclick="openUpdateModal('${item.id}')">
-                             <i class="fa-solid fa-gear"></i> Options
+                        <button class="btn btn-lg btn-action" onclick="openUpdateModal('${item.id}')">
+                             <i class="fa-solid fa-edit></i> Update
                         </button>
                     </div>
                 `;
@@ -190,15 +190,30 @@ function toggleScheduleInput(value) {
 
 
 function openUpdateModal(studentId) {
-    const student = window.rawStudentsData.find(s => s.id === studentId);
-    if (!student) return alert("Student record not found!");
+    /*const student = window.rawStudentsData.find(s => s.id === studentId);
+    if (!student) return alert("Student record not found!");*/
+    let student = null;
+    if (typeof window.rawStudentsData !== 'undefined' && Array.isArray(window.rawStudentsData)) {
+        student = window.rawStudentsData.find(s => String(s.id).trim() === String(studentId).trim());
+    }else{
+        return alert("Student record not found!");
+    }
+            
+    // Fallback: If not found in rawStudentsData, search current table elements/state
+    if (!student && typeof studentsData !== 'undefined' && Array.isArray(studentsData)) {
+        student = studentsData.find(s => String(s.id).trim() === String(studentId).trim());
+    }
+    const modal = document.getElementById('updateModal');
+    if (!modal) {
+        return console.error("Element with ID 'updateModal' not found in DOM.");
+    }
 
     document.getElementById('edit-student-id').value = student.id;
     document.getElementById('modalStudentId').textContent = "ID: " + student.id;
     document.getElementById('modal-info').textContent = "Name: " + student.name +"Email: " + student.email;
 
     // Set Converted Value
-    const isConverted = String(student.converted).toLowerCase() === 'true' || String(student.converted).toLowerCase() === 'yes';
+   /* const isConverted = String(student.converted).toLowerCase() === 'true' || String(student.converted).toLowerCase() === 'yes';
     document.getElementById('edit-converted').value = isConverted ? 'Yes' : 'No';
 
     // Set Called Value
@@ -220,7 +235,37 @@ function openUpdateModal(studentId) {
     document.getElementById('edit-status').value = student.status || 'Active';
 
     // Show Overlay
-    document.getElementById('updateModal').style.display = 'flex';
+    document.getElementById('updateModal').style.display = 'flex';*/
+    if (student) {
+        // Match converted status
+        const isConverted = String(student.converted).toLowerCase() === 'true' || String(student.converted).toLowerCase() === 'yes';
+        document.getElementById('edit-converted').value = isConverted ? 'Yes' : 'No';
+
+        // Match called status
+        const calledVal = student.called || 'Pending';
+        if (calledVal.startsWith('Scheduled')) {
+            document.getElementById('edit-called').value = 'Scheduled';
+            toggleScheduleInput('Scheduled');
+            const timeMatch = calledVal.match(/\((.*?)\)/);
+            if (timeMatch) {
+                document.getElementById('edit-scheduled-time').value = timeMatch[1];
+            }
+        } else {
+            document.getElementById('edit-called').value = calledVal;
+            toggleScheduleInput(calledVal);
+        }
+
+        // Match status
+        document.getElementById('edit-status').value = student.status || 'Active';
+    } else {
+        // Defaults if student object isn't found in JS memory array
+        document.getElementById('edit-converted').value = 'No';
+        document.getElementById('edit-called').value = 'Pending';
+        document.getElementById('edit-status').value = 'Active';
+        toggleScheduleInput('Pending');
+    }
+    // Force modal display
+    modal.style.setProperty('display', 'flex', 'important');
 }
 
 
@@ -246,9 +291,11 @@ async function saveRecordChanges() {
 
     const payload = {
         id: studentId,
-        converted: converted,
-        called: finalCalledVal,
-        status: status
+        update_info: {
+            converted: converted,
+            called: finalCalledVal,
+            status: status
+        }
     };
 
     const saveBtn = document.getElementById('save-btn');
@@ -267,21 +314,27 @@ async function saveRecordChanges() {
         const result = await response.json();
 
         if (response.status === 200 && result.success) {
-            alert('Student record updated successfully!');
+            alert(result.message || 'Student record updated successfully!');
 
             // Update local memory data and re-render without page reload
-            const index = window.rawStudentsData.findIndex(s => s.id === studentId);
+            //const index = window.rawStudentsData.findIndex(s => s.id === studentId);
+            const targetArr = window.rawStudentsData || studentsData || [];
+            const index = targetArr.findIndex(s => String(s.id).trim() === String(studentId).trim());
             if (index !== -1) {
-                window.rawStudentsData[index].converted = converted;
-                window.rawStudentsData[index].called = finalCalledVal;
-                window.rawStudentsData[index].status = status;
-                window.rawStudentsData[index].dateOfModified = new Date().toISOString().split('T')[0];
+                targetArr[index].converted = converted;
+                targetArr[index].called = finalCalledVal;
+                targetArr[index].status = status;
+                targetArr[index].dateOfModified = new Date().toISOString().split('T')[0];
             }
 
-            applyFilters(); // Redraw UI
+            if (typeof applyFilters === 'function') {
+                applyFilters();
+            } else if (typeof renderTable === 'function') {
+                renderTable(targetArr);
+            }
             closeUpdateModal();
         } else {
-            alert(`Error (${response.status}): \n${result.message || 'Failed to update student record, please check server logs for more details.'}`);
+            alert(`Error (${result.status || response.status}): \n${result.message || 'Failed to update student record, please check server logs for more details.'}`);
         }
     } catch (error) {
         console.error('Update Error:', error);
