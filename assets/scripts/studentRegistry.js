@@ -38,7 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function renderCalledBadge(val) {
             const str = String(val).toLowerCase();
-            if (str === 'true' || str === 'yes') return `<span class="badge badge-blue">Yes</span>`;
+            console.log(str, val);
+            if (str === 'true' || str === 'done') return `<span class="badge badge-blue">Done</span>`;
+            if (str === 'scheduled' || /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(String(val))) return `<span class="badge badge-amber">Scheduled at <br>${str}</span>`;
+            if (str === 'not contactable') return `<span class="badge badge-red">Not Contactable</span>`;
             return `<span class="badge badge-amber">Pending</span>`;
         }
 
@@ -192,8 +195,6 @@ function toggleScheduleInput(value) {
 
 
 function openUpdateModal(studentId) {
-    /*const student = window.rawStudentsData.find(s => s.id === studentId);
-    if (!student) return alert("Student record not found!");*/
     let student = null;
     if (typeof window.rawStudentsData !== 'undefined' && Array.isArray(window.rawStudentsData)) {
         student = window.rawStudentsData.find(s => String(s.id).trim() === String(studentId).trim());
@@ -214,30 +215,6 @@ function openUpdateModal(studentId) {
     document.getElementById('modalStudentId').textContent = "ID: " + student.id;
     document.getElementById('model-info').innerText = "Name: " + student.name +"\nEmail: " + student.email+"\nCourse: " + student.preferredCourse;
 
-    // Set Converted Value
-   /* const isConverted = String(student.converted).toLowerCase() === 'true' || String(student.converted).toLowerCase() === 'yes';
-    document.getElementById('edit-converted').value = isConverted ? 'Yes' : 'No';
-
-    // Set Called Value
-    const calledVal = student.called || 'Pending';
-    if (calledVal.startsWith('Scheduled')) {
-        document.getElementById('edit-called').value = 'Scheduled';
-        toggleScheduleInput('Scheduled');
-        // Parse time if previously stored in format "Scheduled (YYYY-MM-DDTHH:MM)"
-        const timeMatch = calledVal.match(/\((.*?)\)/);
-        if (timeMatch) {
-            document.getElementById('edit-scheduled-time').value = timeMatch[1];
-        }
-    } else {
-        document.getElementById('edit-called').value = calledVal;
-        toggleScheduleInput(calledVal);
-    }
-
-    // Set Status Value
-    document.getElementById('edit-status').value = student.status || 'Active';
-
-    // Show Overlay
-    document.getElementById('updateModal').style.display = 'flex';*/
     if (student) {
         // Match converted status
         const isConverted = String(student.converted).toLowerCase() === 'true' || String(student.converted).toLowerCase() === 'yes';
