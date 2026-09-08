@@ -17,6 +17,8 @@
 
 Whether you’re preparing for **GATE, JEE, NEET, CET, JEMAT, or board exams**, SankhyAI provides a structured ecosystem where students can access live classes, AI‑powered study support, and personalized mentorship.
 
+Official Website: [https://sankhyai.mockmantra.in](https://sankhyai.mockmantra.in)
+
 ## 🎯 Aim
 Our aim is to create a **scalable, affordable, and intelligent learning platform** that:  
 - Empowers students with **AI‑driven guidance** and mentor support.  
@@ -59,6 +61,13 @@ Our aim is to create a **scalable, affordable, and intelligent learning platform
 - Parents looking for **budget‑friendly academic support**.  
 - Professionals aiming to **upskill in Python, C, and AI technologies**.
 
+## 📈 SEO Keywords
+- SankhyAI online courses Kolkata  
+- AI/ML training with mentors  
+- Budget‑friendly competitive exam coaching  
+- Node.js + TypeScript learning platform  
+- AI‑powered student guidance
+  
 ## 🏢 Ownership
 
 Sankhyai is proudly owned by Mockmantra and maintained by **AI Dictionary**, an initiative committed to redefining digital learning through artificial intelligence.
@@ -71,15 +80,8 @@ Sankhyai is proudly owned by Mockmantra and maintained by **AI Dictionary**, an 
 - Unauthorized duplication or resale will result in legal action under applicable intellectual property laws.  
 - Students and collaborators are granted **limited usage rights** only within the SankhyAI ecosystem.  
 
-## 📈 SEO Keywords
-- SankhyAI online courses Kolkata  
-- AI/ML training with mentors  
-- Budget‑friendly competitive exam coaching  
-- Node.js + TypeScript learning platform  
-- AI‑powered student guidance  
-
 ## 📘 Contact
-For any queries, feedback, or technical support related to CBSConcord2025, feel free to reach out:
+For any queries, feedback, or technical support related to SankhyAI, feel free to reach out:
 
 - **Company**: AI Dictionary
 - **Website**: [sankhyai.mockmantra.in](https://sankhyai.mockmantra.in)  
