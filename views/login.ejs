@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sankhyai by Mockmantra - Master Tech & Academics with Industry Mentors. Live online courses in AI, Backend, Python, and Competitive Academics.">
+    <meta name="keywords" content="Sankhyai, Mockmantra, EdTech, AI Courses, Backend Development, Python, JEE Mathematics, Physics">
+    <meta property="og:title" content="sankhyai">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico" name="og:image">
+    <meta itemprop="image" content="https://sankhyai.vercel.app/public/logo1500.png">
+    <meta property="og:site_name" content="sankhyai">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="sankhyai">
+    <title version="1.0">Sankhy AI - Login</title>
+    <meta name="author" content="Ai-Dictionary">
+    <link rel="icon" href="../public/favicon.ico"/>
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <% if (isHosted) { %>
+        <link rel="stylesheet" href="https://ai-dictionary.github.io/sankhyai/assets/styles/login.css"/>
+    <% } else { %>
+        <link rel="stylesheet" href="../assets/styles/login.css"/>
+    <% } %>
+</head>
+<body>
+
+    <main class="workspace flx">
+        <section class="left-component">
+            <div class="logo">
+                <img src="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/logo1500.png" alt="Sankhyai Logo" title="Sankhyai Portal"/>
+            </div>
+            <div class="heading">
+                SankhyAi Admission <span>Portal</span><br>
+                Staff Access & Management
+            </div>
+            <img src="https://raw.githubusercontent.com/Ai-Dictionary/superaitutor/main/assets/images/student_reading.png" alt="Sankhyai Management" class="student_reading"/>
+        </section>
+
+        <section class="right-component">
+            <div class="log-from">
+                <h3>Welcome Back</h3>
+                <h5>Sign in to access student registry dashboard</h5>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="useremail" placeholder="Enter User ID or Email ID" required autocomplete="username"/>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control" id="userpassword" placeholder="Enter Password" required autocomplete="current-password"/>
+                </div>
+
+                <div class="form-group flx">
+                    <div class="captcha">
+                        <img src="" alt="captcha" title="Security Verification Captcha" id="captcha-img"/>
+                    </div>
+                    <div class="btn-outline-process" id="captcha-btn">
+                        <i class="fa fa-refresh"></i> Refresh
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" id="captcha-txt" placeholder="Enter Captcha" required/>
+                </div>
+
+                <div class="btn-process" id="login">
+                    <span>Login to Registry</span> <i class="fa-solid fa-arrow-right"></i>
+                </div>
+
+                <div class="error"></div>
+            </div>
+        </section>
+    </main>
+</body>
+<script nonce="<%= nonce %>">
+    window.isHosted = "<%= isHosted %>";
+    window.captchaKey = "<%= key %>";
+</script>
+<% if (isHosted) { %>
+    <script src="https://ai-dictionary.github.io/sankhyai/assets/scripts/captcha.js" nonce="<%= nonce %>"></script>
+    <script src="https://ai-dictionary.github.io/sankhyai/assets/scripts/login.js" nonce="<%= nonce %>"></script>
+<% } else { %>
+    <script src="../assets/scripts/login.js" nonce="<%= nonce %>"></script>
+    <script src="../assets/scripts/captcha.js" nonce="<%= nonce %>"></script>
+<% } %>
+</html>
