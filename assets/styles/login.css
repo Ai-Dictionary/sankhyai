@@ -1,0 +1,303 @@
+        :root {
+            /* Sankhyai Yellow Brand Palette */
+            --primary-yellow: #F59E0B;
+            --primary-yellow-hover: #D97706;
+            --primary-yellow-light: #FEF3C7;
+            --dark-charcoal: #1E293B;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+            --bg-gradient: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 50%, #FDE68A 100%);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger-color: #DC2626;
+            --success-color: #16A34A;
+            --input-valid: #10B981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(10px, 3vw, 30px);
+        }
+
+        .workspace {
+            display: flex;
+            width: 100%;
+            max-width: 1020px;
+            background: #FFFFFF;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(217, 119, 6, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+            min-height: 580px;
+        }
+
+        /* Left Branding Section (Yellow/Dark Theme) */
+        .left-component {
+            flex: 1;
+            background: linear-gradient(135deg, #353314 0%, #362C07 100%);
+            padding: clamp(24px, 4vw, 48px);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #FFFFFF;
+            position: relative;
+            overflow: hidden;
+            border-right: 4px solid var(--primary-yellow);
+        }
+
+        .left-component::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 240px;
+            height: 240px;
+            background: rgba(245, 158, 11, 0.25);
+            border-radius: 50%;
+            filter: blur(50px);
+        }
+
+        .logo img {
+            height: clamp(36px, 4vw, 48px);
+            width: auto;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .heading {
+            font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            color: #FFFFFF;
+            z-index: 1;
+        }
+
+        .heading span {
+            color: var(--primary-yellow);
+        }
+
+        .student_reading {
+            width: 100%;
+            max-width: 260px;
+            margin: 0 auto;
+            display: block;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
+            z-index: 1;
+        }
+
+        /* Right Form Section */
+        .right-component {
+            flex: 1.1;
+            padding: clamp(24px, 4vw, 48px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #FFFFFF;
+        }
+
+        .log-from {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .log-from h3 {
+            font-size: clamp(1.3rem, 2vw, 1.6rem);
+            font-weight: 800;
+            color: var(--dark-charcoal);
+            margin-bottom: 6px;
+        }
+
+        .log-from h5 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: var(--dark-charcoal);
+            outline: none;
+            transition: var(--transition);
+            background: #FAFAFA;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-yellow);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 4px var(--primary-yellow-light);
+        }
+
+        /* Validation State Styles */
+        .form-control.is-valid {
+            border-color: var(--input-valid) !important;
+            background-color: #F0FDF4;
+        }
+
+        .form-control.is-invalid {
+            border-color: var(--danger-color) !important;
+            background-color: #FEF2F2;
+        }
+
+        /* Captcha Styles */
+        .flx {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .captcha {
+            flex: 1;
+            background: #F8FAFC;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .captcha img {
+            max-height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .btn-outline-process {
+            padding: 0 16px;
+            height: 48px;
+            border: 1.5px solid var(--primary-yellow);
+            background: var(--primary-yellow-light);
+            color: var(--primary-yellow-hover);
+            border-radius: 10px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-outline-process:hover {
+            background: var(--primary-yellow);
+            color: #FFFFFF;
+        }
+
+        /* Submit Button */
+        .btn-process {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-yellow);
+            color: var(--dark-charcoal);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+            margin-top: 10px;
+        }
+
+        .btn-process:hover {
+            background: var(--primary-yellow-hover);
+            color: #FFFFFF;
+            transform: translateY(-1px);
+        }
+
+        /* Error / Notification Feedback Box */
+        .error {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: none;
+            color: var(--danger-color);
+            background: #FEF2F2;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        /* 
+           Responsive Design Fixes
+           Includes specific rules for Mobile Desktop Mode
+        */
+        @media screen and (max-width: 992px) {
+            .workspace {
+                max-width: 720px;
+            }
+            .left-component {
+                padding: 32px 24px;
+            }
+        }
+
+        /* Mobile Viewport and Mobile Desktop Mode Overrides */
+        @media screen and (max-width: 820px), screen and (max-height: 600px) {
+            body {
+                align-items: flex-start;
+            }
+            .workspace {
+                flex-direction: column;
+                max-width: 480px;
+                min-height: auto;
+                margin: 10px auto;
+            }
+            .left-component {
+                display: flex;
+                padding: 24px;
+                text-align: center;
+                gap: 16px;
+                border-right: none;
+                border-bottom: 4px solid var(--primary-yellow);
+            }
+            .student_reading {
+                max-width: 140px;
+            }
+            .right-component {
+                padding: 28px 20px;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            .left-component {
+                display: none; /* Hide illustrative side banner on narrow mobile screens */
+            }
+            .flx {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-outline-process {
+                justify-content: center;
+            }
+        }
