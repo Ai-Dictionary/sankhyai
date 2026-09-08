@@ -237,19 +237,33 @@ app.get('/varchar', (req, res) => {
 app.get('/studentRegistry', async (req, res) => {
     const nonce = res.locals.nonce;
     const isHosted = hex.isHosted(req);
+    const token = req.cookies.auth_token;
     try{
-        const memory = new Memory();
-        memory.clusterName = 'student'; 
+        if(token){
+            const encripted_info = security.substitutionDecoder(String((JSON.parse(token))?.token), 'security');
+            let [id, expiry] = encripted_info.split("-");
+            if(Date.now() < expiry){
+                
+                const memory = new Memory();
+                memory.clusterName = 'student'; 
 
-        const data = await memory.read();
+                const data = await memory.read();
 
-        if(!(data?.status)){
-            res.status(200).render('studentRegistry',{nonce: nonce, isHosted, students: data});
+                if(!(data?.status)){
+                   res.status(200).render('studentRegistry',{nonce: nonce, isHosted, students: data});
+                }else{
+                   res.status(404).render('studentRegistry',{nonce: nonce, isHosted, students: jsonfile.readFileSync('./config/error_log.json')[data.status]});
+                }
+            }else{
+                //res.status(419).send(hex.renderHBS(fs, handlebars, 'session_expire', {nonce: nonce})); //Session Expired
+                res.status(419).redirect('/notfound', {error: 419, message: 'Session Expired , please login for reconnect!'});
+            }
         }else{
-            res.status(404).render('studentRegistry',{nonce: nonce, isHosted, students: jsonfile.readFileSync('./config/error_log.json')[data.status]});
+            //res.status(401).send(hex.renderHBS(fs, handlebars, 'unauthorize_entry', {nonce: nonce, isHosted: isHosted})); //unauthorize user open
+            res.status(401).redirect('/notfound', {error: 401, message: 'Unauthorize Entry not allow, Please use valid credentials to login in our records and then use this feature.'});
         }
-    }catch(error){
-        res.status(500).render('studentRegistry',{nonce: nonce, isHosted, students: {}});
+    }catch(e){
+        res.status(400).redirect('/notfound',{error: 500, message: "Some unwanted error occure while setup the dashboard and fetching your information, If you see this error multi-time then please inform us about this faliur, and try some time later..", statement: e});
     }
 });
 
@@ -337,6 +351,47 @@ app.post('/update_profile_info', async (req, res) => {
     }
 });
 
+app.get('/login', async (req, res) => {
+    const nonce = res.locals.nonce;
+    const isHosted = hex.isHosted(req);
+    
+    const token = req.cookies.auth_token;
+    /*if(token){
+        const encripted_info = security.substitutionDecoder(String((JSON.parse(token))?.token), 'security');
+        let [id, expiry] = encripted_info.split("-");
+        if(Date.now() < expiry){
+            
+        }
+    }else{
+        
+    }*/
+    res.status(200).render('login',{nonce: nonce, key: '404', isHosted});
+});
+
+app.post('/auth', async (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    try{
+        if(security.email === email && security.access_token === password){
+            const expiryTime = Date.now() + 30 * 60 * 1000;
+            const tokenPayload = JSON.stringify({ token: security.substitutionEncoder(String(security.email+'-'+expiryTime), 'security') });
+
+            res.cookie('auth_token', tokenPayload, {
+                maxAge: 30 * 60 * 1000,
+                httpOnly: true,
+                secure: true,
+                sameSite: 'Strict'
+            });
+
+            res.status(200).json({ 'success': true, 'message': 'Authentication successful!' });
+        }else{
+            res.status(400).json({'success': false, 'error': 400, 'message': 'It looks like the login details you entered are not correct. Please double-check your userid and password, and try again in a little while.'});
+        }
+    }catch(error){
+        res.status(500).json({'success': false, 'error': 500, 'message': error});
+    }
+});
 
 app.all(/.*/, (req, res) => {
     res.status(404).render('notfound',{nonce: res.locals.nonce, error: 404, message: "Page not found on this url, check the source or report it"});
