@@ -373,7 +373,7 @@ app.post('/auth', async (req, res) => {
     const password = req.body.password;
 
     try{
-        if(security.email === email && security.access_token === password){
+        if(process.env.access_id === email && process.env.pass === password){
             const expiryTime = Date.now() + 30 * 60 * 1000;
             const tokenPayload = JSON.stringify({ token: security.substitutionEncoder(String(security.email+'-'+expiryTime), 'security') });
 
