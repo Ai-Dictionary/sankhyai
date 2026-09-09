@@ -35,5 +35,7 @@ module.exports = {
     blockedIPs: ['100.110.116.83', '100.91.56.124', '100.117.194.70', '185.177.72.22', '20.81.159.36', '40.76.117.228', '54.173.182.164'],
     ipHits: {},
     tempBlockedIPs: new Map(),
-    revive: 'medikit'
+    revive: 'medikit',
+    email: "support@mockmantra.in",
+    access: "@Sankhyai2026"
 };
