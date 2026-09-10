@@ -398,7 +398,8 @@ app.post('/auth', async (req, res) => {
 app.get('/regStatus', async (req, res) => {
     try {
         const studentId = req.query.id ? String(req.query.id).trim() : null;
-
+        const isHosted = hex.isHosted(req);
+    
         const idRegex = /^(?:[\w.-]+@[\w.-]+\.\w{2,}|(?:AID|UID|MID)[A-Za-z](?=(?:\d*@\d*|\d*@\d*)$)[\d@]{10,15})$/;
 
         if (!studentId || !idRegex.test(studentId)) {
@@ -406,7 +407,8 @@ app.get('/regStatus', async (req, res) => {
                 success: false,
                 error: 400,
                 message: 'Invalid or missing Registration ID format. Please check your tracking link.',
-                studentData: null
+                studentData: null,
+                isHosted
             });
         }else{
             let memory = new Memory();
@@ -419,14 +421,16 @@ app.get('/regStatus', async (req, res) => {
                      success: true,
                      error: null,
                      message: null,
-                     studentData: profile
+                     studentData: profile,
+                     isHosted
                });
            } else {
                return res.render('regStatus', {
                     success: false,
                     error: 404,
                     message: 'We could not find any registration record matching this ID in our system.',
-                    studentData: null
+                    studentData: null,
+                    isHosted
              });
           }
         }
@@ -436,7 +440,8 @@ app.get('/regStatus', async (req, res) => {
             success: false,
             error: 500,
             message: 'An internal server error occurred while retrieving registration status.',
-            studentData: null
+            studentData: null,
+            isHosted
         });
     }
 });
