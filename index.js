@@ -189,7 +189,7 @@ app.use([
         next();
     }
 ]);
-
+/*
 app.use(async (req, res, next) => {
     try{
         const url = req.originalUrl;
@@ -216,7 +216,7 @@ app.use(async (req, res, next) => {
     }
 });
 
-
+*/
 
 app.get('/', async (req, res) => {
     const nonce = res.locals.nonce;
@@ -403,7 +403,7 @@ app.get('/regStatus', async (req, res) => {
         const idRegex = /^AID(?=.*@)[A-Z0-9@]{11,13}$/;
 
         if (!studentId || !idRegex.test(studentId)) {
-            console.log(idRegex.test(studentId));
+            console.log(idRegex.test(studentId), req.query);
             return res.status(400).render('regStatus', {
                 success: false,
                 error: 400,
