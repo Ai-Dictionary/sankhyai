@@ -395,6 +395,53 @@ app.post('/auth', async (req, res) => {
     }
 });
 
+app.get('/regStatus', async (req, res) => {
+    try {
+        const studentId = req.query.id ? String(req.query.id).trim() : null;
+
+        const idRegex = /^(?:[\w.-]+@[\w.-]+\.\w{2,}|(?:AID|UID|MID)[A-Za-z](?=(?:\d*@\d*|\d*@\d*)$)[\d@]{10,15})$/;
+
+        if (!studentId || !idRegex.test(studentId)) {
+            return res.render('regStatus', {
+                success: false,
+                error: 400,
+                message: 'Invalid or missing Registration ID format. Please check your tracking link.',
+                studentData: null
+            });
+        }else{
+            let memory = new Memory();
+            memory.clusterName = 'student';
+
+           const profile = await memory.find_profile(studentId);
+
+            if (profile && profile.status !== 3 && profile.status !== 1 && Object.keys(profile).length > 0) {
+                return res.render('regStatus', {
+                     success: true,
+                     error: null,
+                     message: null,
+                     studentData: profile
+               });
+           } else {
+               return res.render('regStatus', {
+                    success: false,
+                    error: 404,
+                    message: 'We could not find any registration record matching this ID in our system.',
+                    studentData: null
+             });
+          }
+        }
+    } catch (err) {
+        console.error('Error handling /regStatus route:', err);
+        return res.render('regStatus', {
+            success: false,
+            error: 500,
+            message: 'An internal server error occurred while retrieving registration status.',
+            studentData: null
+        });
+    }
+});
+
+
 app.all(/.*/, (req, res) => {
     res.status(404).render('notfound',{nonce: res.locals.nonce, error: 404, message: "Page not found on this url, check the source or report it"});
 });
