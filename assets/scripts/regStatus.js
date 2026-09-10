@@ -35,10 +35,22 @@ function generatePDF() {
         filename:     filename,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] } // Prevents cutting elements in half
     };
 
-    html2pdf().set(opt).from(element).save();
+    // Temporarily i reset body styling for clean PDF capture
+    const originalBodyStyle = document.body.style.cssText;
+    document.body.style.display = 'block';
+    document.body.style.padding = '0';
+    document.body.style.minHeight = 'auto';
+
+    html2pdf().set(opt).from(element).save().then(() => {
+        // Restore original screen layout after PDF is generated
+        document.body.style.cssText = originalBodyStyle;
+    });
+
+    // html2pdf().set(opt).from(element).save();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
