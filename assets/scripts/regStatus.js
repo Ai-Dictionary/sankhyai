@@ -44,7 +44,7 @@ function generatePDF() {
 document.addEventListener('DOMContentLoaded', () => {
     const urlContainer = document.getElementById("my_url");
     if (urlContainer) {
-        urlContainer.innerHTML = "<pre>"+window.location.href+"</pre>";
+        urlContainer.textContent = window.location.href;
     }
 
     setTimeout(() => {
