@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sankhyai by Mockmantra - Master Tech & Academics with Industry Mentors. Live online courses in AI, Backend, Python, and Competitive Academics.">
+    <meta name="keywords" content="Sankhyai, Mockmantra, EdTech, AI Courses, Backend Development, Python, JEE Mathematics, Physics">
+    <meta property="og:title" content="sankhyai">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico" name="og:image">
+    <meta itemprop="image" content="https://sankhyai.vercel.app/public/logo1500.png">
+    <meta property="og:site_name" content="sankhyai">
+    <meta property="twitter:image" content="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="sankhyai">
+    <title version="1.0">Sankhy AI - Student Registry Status</title>
+    <meta name="author" content="Ai-Dictionary">
+    <link rel="icon" href="../public/favicon.ico"/>
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <% if (isHosted) { %>
+        <link rel="stylesheet" href="https://ai-dictionary.github.io/sankhyai/assets/styles/regStatus.css"/>
+    <% } else { %>
+        <link rel="stylesheet" href="../assets/styles/regStatus.css"/>
+    <% } %>
+</head>
+<body>
+
+    <div class="status-card">
+        <div class="card-header">
+            <div class="header-brand">
+                <img src="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/logo1500.png" alt="SankhyAi Logo"/>
+                <div class="header-title">
+                    <h2>SankhyAi Admissions</h2>
+                    <p>Registration Tracking Portal</p>
+                </div>
+            </div>
+            <div>
+                <i class="fa-solid fa-id-card-clip" style="font-size: 1.5rem; color: var(--primary-yellow);"></i>
+            </div>
+        </div>
+
+        <% if (success && studentData) { %>
+            <div class="card-body">
+                <div class="info-grid">
+                    
+                    <div class="info-item full-width">
+                        <span class="info-label">Registration ID</span>
+                        <span class="info-value" style="color: var(--primary-yellow-hover); font-family: monospace; font-size: 1.05rem;">
+                            <%= studentData.id || 'N/A' %>
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Student Name</span>
+                        <span class="info-value"><%= studentData.name || studentData.studentName || 'N/A' %></span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Parent / Guardian Name</span>
+                        <span class="info-value"><%= studentData.parentName || studentData.parent_name || 'N/A' %></span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Registered Email</span>
+                        <span class="info-value" id="masked-email">
+                            <%= studentData.email || 'N/A' %>
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Class / Semester</span>
+                        <span class="info-value"><%= studentData.classSem || studentData.class || 'N/A' %></span>
+                    </div>
+
+                    <div class="info-item full-width">
+                        <span class="info-label">Preferred Course</span>
+                        <span class="info-value" style="color: var(--dark-charcoal);"><%= studentData.preferredCourse || 'N/A' %></span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Call / Counseling Status</span>
+                        <div class="info-value">
+                            <% const calledVal = studentData.called || 'Pending'; %>
+                            <span class="status-badge <%= getBadgeClass(calledVal) %>">
+                                <i class="fa-solid fa-phone-volume"></i> <%= calledVal %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Account Status</span>
+                        <div class="info-value">
+                            <% const statusVal = studentData.status || 'Active'; %>
+                            <span class="status-badge <%= getBadgeClass(statusVal) %>">
+                                <i class="fa-solid fa-circle-dot"></i> <%= statusVal %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="info-item full-width">
+                        <span class="info-label">Registration Date</span>
+                        <span class="info-value"><%= studentData.dateOfRegistration || studentData.created || 'N/A' %></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <i class="fa-solid fa-circle-info"></i> Our admission team will update your call status as soon as counselor reaches out.
+            </div>
+
+        <% } else { %>
+            <div class="card-body">
+                <div class="error-container">
+                    <div class="error-icon">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div class="error-title">
+                        <%= error ? 'Error ' + error : 'Record Not Found' %>
+                    </div>
+                    <div class="error-message">
+                        <%= message || 'We were unable to locate your registration status details.' %>
+                    </div>
+                    <a href="/" class="btn-home">
+                        <i class="fa-solid fa-arrow-left"></i> Return to Homepage
+                    </a>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <%
+      function getBadgeClass(val) {
+          if (!val) return 'badge-pending';
+          const lower = String(val).toLowerCase();
+          if (lower.includes('pending')) return 'badge-pending';
+          if (lower.includes('done') || lower.includes('yes') || lower.includes('active')) return 'badge-active';
+          if (lower.includes('scheduled') || lower.includes('touch')) return 'badge-scheduled';
+          if (lower.includes('deactive') || lower.includes('suspend') || lower.includes('not contactable')) return 'badge-notcontactable';
+          return 'badge-pending';
+      }
+    %>
+<script nonce="<%= nonce %>">
+    window.isHosted = "<%= isHosted %>";
+</script>
+<% if (isHosted) { %>
+    <script src="https://ai-dictionary.github.io/sankhyai/assets/scripts/regStatus.js" nonce="<%= nonce %>"></script>
+<% } else { %>
+    <script src="../assets/scripts/regStatus.js" nonce="<%= nonce %>"></script>
+<% } %>
+</body>
+</html>
