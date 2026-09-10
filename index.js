@@ -189,7 +189,7 @@ app.use([
         next();
     }
 ]);
-/*
+
 app.use(async (req, res, next) => {
     try{
         const url = req.originalUrl;
@@ -215,8 +215,6 @@ app.use(async (req, res, next) => {
         res.status(401).render('notfound',{error: 401, message: "Unauthorize entry not allow, check the source or report it", statement: e});
     }
 });
-
-*/
 
 app.get('/', async (req, res) => {
     const nonce = res.locals.nonce;
@@ -266,7 +264,6 @@ app.get('/studentRegistry', async (req, res) => {
         res.status(400).redirect('/notfound',{error: 500, message: "Some unwanted error occure while setup the dashboard and fetching your information, If you see this error multi-time then please inform us about this faliur, and try some time later..", statement: e});
     }
 });
-
 
 app.post('/reg', async (req, res) => {
     const clientIP = req.headers['x-forwarded-for'] || req.headers['x-vercel-forwarded-for'] || req.connection.remoteAddress || req.ip;
@@ -397,7 +394,13 @@ app.post('/auth', async (req, res) => {
 
 app.get('/regStatus', async (req, res) => {
     try {
-        const studentId = req.query.id ? String(req.query.id).trim() : null;
+        let queryParams = new URLSearchParams(decodeURIComponent(req.originalUrl).split('?')[1]);
+        if(queryParams.has('encode')){
+            let decoded_url = security.substitutionDecoder(decodeURIComponent(req.originalUrl).split('?encode=')[1], String(varchar.public_key));
+            queryParams = new URLSearchParams(decoded_url);
+        }
+        
+        const studentId = queryParams.get('id') ? String(queryParams.get('id')).trim() : null;
         const isHosted = hex.isHosted(req);
     
         const idRegex = /^AID(?=.*@)[A-Z0-9@]{11,13}$/;
