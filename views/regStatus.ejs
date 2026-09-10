@@ -153,21 +153,11 @@
 <script nonce="<%= nonce %>">
     window.isHosted = "<%= isHosted %>";
 </script>
+<script nonce="<%= nonce %>" src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <% if (isHosted) { %>
     <script src="https://ai-dictionary.github.io/sankhyai/assets/scripts/regStatus.js" nonce="<%= nonce %>"></script>
 <% } else { %>
     <script src="../assets/scripts/regStatus.js" nonce="<%= nonce %>"></script>
 <% } %>
-<script nonce="<%= nonce %>" src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script nonce="<%= nonce %>">
-    function generatePDF(){
-        const element = document.getElementById('reg_status');
-        html2pdf().from(element).save();
-    }
-    document.getElementById("my_url").textContent = window.location.href;
-    setTimeout(()=>{
-       generatePDF();
-    }, 2000);
-</script>
 </body>
 </html>
