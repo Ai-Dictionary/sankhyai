@@ -403,10 +403,11 @@ app.get('/regStatus', async (req, res) => {
         const idRegex = /^AID(?=.*@)[A-Z0-9@]{11,13}$/;
 
         if (!studentId || !idRegex.test(studentId)) {
-            return res.render('regStatus', {
+            console.log(idRegex.test(studentId));
+            return res.status(400).render('regStatus', {
                 success: false,
                 error: 400,
-                message: 'Invalid or missing Registration ID format. Please check your tracking link.',
+                message: 'Invalid or missing Registration ID ('+studentId+') format. Please check your tracking link.',
                 studentData: null,
                 isHosted
             });
@@ -417,7 +418,7 @@ app.get('/regStatus', async (req, res) => {
            const profile = await memory.find_profile(studentId);
 
             if (profile && profile.status !== 3 && profile.status !== 1 && Object.keys(profile).length > 0) {
-                return res.render('regStatus', {
+                return res.status(200).render('regStatus', {
                      success: true,
                      error: null,
                      message: null,
@@ -425,7 +426,7 @@ app.get('/regStatus', async (req, res) => {
                      isHosted
                });
            } else {
-               return res.render('regStatus', {
+               return res.status(404).render('regStatus', {
                     success: false,
                     error: 404,
                     message: 'We could not find any registration record matching this ID in our system.',
@@ -436,7 +437,7 @@ app.get('/regStatus', async (req, res) => {
         }
     } catch (err) {
         console.error('Error handling /regStatus route:', err);
-        return res.render('regStatus', {
+        return res.status(500).render('regStatus', {
             success: false,
             error: 500,
             message: 'An internal server error occurred while retrieving registration status.',
