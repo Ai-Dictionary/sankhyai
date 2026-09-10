@@ -143,6 +143,18 @@
             background: var(--badge-danger-bg);
             color: var(--badge-danger-text);
         }
+#my_url {
+    background: #F8FAFC;
+    border: 1px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.78rem;
+    font-family: monospace;
+    color: var(--text-muted);
+    word-break: break-all;
+    white-space: normal;
+    margin-top: 12px;
+}
 
         .error-container {
             text-align: center;
@@ -209,3 +221,29 @@
                 grid-column: span 1;
             }
         }
+
+/* Prevent PDF page splitting inside card elements */
+.status-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+/* CSS specific for PDF rendering & Print mode */
+@media print {
+    body {
+        min-height: auto !important;
+        display: block !important;
+        background: #FFFFFF !important;
+        padding: 20px 0 !important;
+        margin: 0 !important;
+    }
+
+    .status-card {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        border: 1px solid #E2E8F0 !important;
+        margin: 0 auto !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+}
