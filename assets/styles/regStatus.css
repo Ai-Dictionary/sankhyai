@@ -63,6 +63,7 @@
         .header-brand img {
             height: 36px;
             width: auto;
+            border-radius: 5px;
         }
 
         .header-title h2 {
