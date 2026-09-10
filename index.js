@@ -400,7 +400,7 @@ app.get('/regStatus', async (req, res) => {
         const studentId = req.query.id ? String(req.query.id).trim() : null;
         const isHosted = hex.isHosted(req);
     
-        const idRegex = /^(?:[\w.-]+@[\w.-]+\.\w{2,}|(?:AID|UID|MID)[A-Za-z](?=(?:\d*@\d*|\d*@\d*)$)[\d@]{10,15})$/;
+        const idRegex = /^(?:[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|(?:AID|UID|MID)[@A-Za-z0-9_-]{8,25})$/;
 
         if (!studentId || !idRegex.test(studentId)) {
             return res.render('regStatus', {
