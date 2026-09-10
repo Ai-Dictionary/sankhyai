@@ -30,7 +30,7 @@
 </head>
 <body>
 
-    <div class="status-card">
+    <div class="status-card" id="status-card">
         <div class="card-header">
             <div class="header-brand">
                 <img src="https://raw.githubusercontent.com/Ai-Dictionary/sankhyai/main/public/logo1500.png" alt="SankhyAi Logo"/>
@@ -153,5 +153,13 @@
 <% } else { %>
     <script src="../assets/scripts/regStatus.js" nonce="<%= nonce %>"></script>
 <% } %>
+<script nonce="<%= nonce %>" src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script nonce="<%= nonce %>">
+    function generatePDF(){
+        const element = document.getElementById('status-card');
+        html2pdf().from(element).save();
+    }
+    generatePDF();
+</script>
 </body>
 </html>
