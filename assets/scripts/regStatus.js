@@ -20,3 +20,36 @@
                 emailElem.textContent = maskEmail(rawEmail);
             }
         });
+
+function generatePDF() {
+    const element = document.getElementById('reg_status');
+    if (!element) {
+        console.error("Target element '#reg_status' not found.");
+        return;
+    }
+
+    const filename = `SankhyAi_reg_status_${Date.now()}.pdf`;
+
+    const opt = {
+        margin:       [10, 10, 10, 10],
+        filename:     filename,
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const urlContainer = document.getElementById("my_url");
+    if (urlContainer) {
+        urlContainer.innerHTML = "<pre>"+window.location.href+"</pre>";
+    }
+
+    setTimeout(() => {
+        generatePDF();
+    }, 1500);
+});
+
+                    
