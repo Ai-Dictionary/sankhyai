@@ -31,7 +31,7 @@ function generatePDF() {
     const filename = `SankhyAi_reg_status_${Date.now()}.pdf`;
 
     const opt = {
-        margin:       [10, 10, 10, 10],
+        margin:       [0, 10, 10, 10],
         filename:     filename,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
@@ -42,7 +42,7 @@ function generatePDF() {
     // Temporarily i reset body styling for clean PDF capture
     const originalBodyStyle = document.body.style.cssText;
     document.body.style.display = 'block';
-    document.body.style.padding = '0';
+    document.body.style.padding = '0px';
     document.body.style.minHeight = 'auto';
 
     html2pdf().set(opt).from(element).save().then(() => {
