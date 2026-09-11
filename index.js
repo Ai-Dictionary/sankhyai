@@ -254,14 +254,14 @@ app.get('/studentRegistry', async (req, res) => {
                 }
             }else{
                 //res.status(419).send(hex.renderHBS(fs, handlebars, 'session_expire', {nonce: nonce})); //Session Expired
-                res.status(419).redirect('/notfound', {error: 419, message: 'Session Expired , please login for reconnect!'});
+                res.status(419).render('notfound', {error: 419, message: 'Session Expired , please login for reconnect!'});
             }
         }else{
             //res.status(401).send(hex.renderHBS(fs, handlebars, 'unauthorize_entry', {nonce: nonce, isHosted: isHosted})); //unauthorize user open
-            res.status(401).redirect('/notfound', {error: 401, message: 'Unauthorize Entry not allow, Please use valid credentials to login in our records and then use this feature.'});
+            res.status(401).render('notfound', {error: 401, message: 'Unauthorize Entry not allow, Please use valid credentials to login in our records and then use this feature.'});
         }
     }catch(e){
-        res.status(400).redirect('/notfound',{error: 500, message: "Some unwanted error occure while setup the dashboard and fetching your information, If you see this error multi-time then please inform us about this faliur, and try some time later..", statement: e});
+        res.status(400).render('notfound',{error: 500, message: "Some unwanted error occure while setup the dashboard and fetching your information, If you see this error multi-time then please inform us about this faliur, and try some time later..", statement: e});
     }
 });
 
