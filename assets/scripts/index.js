@@ -234,6 +234,9 @@
                 if (response.ok || response.status === 200) {
                     showAlert(data.message, 'success', "Registration Successful!");
                     form.reset();
+                    setTimeout(()=>{
+                        route('/regStatus?encode='+encodeURIComponent(system.encoder(`id=${data.id.replaceAll(' ','%20')}`,'1441'))); 
+                    },2000);
                 } else {
                     showAlert(data.message, 'error', 'Failed to submit registration. Please try again or contact support.');
                 }
