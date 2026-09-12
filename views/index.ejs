@@ -329,5 +329,13 @@
     "description": "Sankhyai by Mockmantra - Master Tech & Academics with Industry Mentors. Live online courses in AI, Backend, Python, and Competitive Academics."
 }
 </script>
+<script nonce="<%= nonce %>">
+    window.isHosted = "<%= isHosted %>";
+</script>
+<% if (isHosted) { %>
+    <script src="https://ai-dictionary.github.io/sankhyai/assets/scripts/index.js" nonce="<%= nonce %>"></script>
+<% } else { %>
+    <script src="../assets/scripts/index.js" nonce="<%= nonce %>"></script>
+<% } %>
 </body>
 </html>
