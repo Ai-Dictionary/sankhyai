@@ -1,252 +1,174 @@
-        // 1. Course Data Array
-        const coursesData = [
-            {
-                id: 1,
-                name: "API / Backend Development",
-                badge: "Tech",
-                type: "badge-tech",
-                duration: "12 Weeks",
-                price: "₹4,999",
-                rating: "4.9",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "RESTful APIs, Node.js, Express, Microservices, MongoDB & PostgreSQL integration."
-            },
-            {
-                id: 2,
-                name: "AI / ML Development",
-                badge: "Tech",
-                type: "badge-tech",
-                duration: "16 Weeks",
-                price: "₹6,999",
-                rating: "5.0",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "Neural Networks, PyTorch, Scikit-Learn, Model Deployment, LLM Fine-tuning."
-            },
-            {
-                id: 3,
-                name: "AI Tools Expertise",
-                badge: "Tech",
-                type: "badge-tech",
-                duration: "4 Weeks",
-                price: "₹1,999",
-                rating: "4.8",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "Prompt Engineering, ChatGPT Workflows, Midjourney, Automation with Zapier/Make."
-            },
-            {
-                id: 4,
-                name: "C Language Foundation",
-                badge: "Tech",
-                type: "badge-tech",
-                duration: "6 Weeks",
-                price: "₹1,499",
-                rating: "4.7",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "Memory allocation, Pointers, Structures, Data Structures & Logic building."
-            },
-            {
-                id: 5,
-                name: "Python Basic",
-                badge: "Tech",
-                type: "badge-tech",
-                duration: "6 Weeks",
-                price: "₹1,999",
-                rating: "4.8",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "Syntax, Data Types, Control Structures, OOPs concepts, Module imports."
-            },
-            {
-                id: 6,
-                name: "Python Advanced",
-                badge: "Tech",
-                type: "badge-tech",
-                duration: "8 Weeks",
-                price: "₹3,499",
-                rating: "4.9",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "Decorators, Generators, AsyncIO, Web Scraping, Frameworks (FastAPI/Django)."
-            },
-            {
-                id: 7,
-                name: "Board Mathematics (JEE / NEET / IIT Level)",
-                badge: "Academic",
-                type: "badge-academic",
-                duration: "6 Months",
-                price: "₹7,999",
-                rating: "5.0",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "Calculus, Algebra, Coordinate Geometry, Trigonometry & Problem-solving."
-            },
-            {
-                id: 8,
-                name: "Physics (Class 10-12 / Competitive Level)",
-                badge: "Academic",
-                type: "badge-academic",
-                duration: "6 Months",
-                price: "₹7,999",
-                rating: "4.9",
-                syllabusUrl: "https://docs.google.com/document/u/0/",
-                topics: "Mechanics, Electromagnetism, Optics, Modern Physics, Numerical Strategies."
-            }
-        ];
+class System{
+    constructor(){
 
-        // 2. Render Courses Dynamically
-        function renderCourses() {
-            const container = document.getElementById('courses-container');
-            const selectDropdown = document.getElementById('preferredCourse');
-
-            coursesData.forEach(course => {
-                // Populate Cards
-                const cardHTML = `
-                    <div class="course-card">
-                        <div>
-                            <div class="course-header">
-                                <span class="badge ${course.type}">${course.badge}</span>
-                                <div class="course-rating"><i class="fa-solid fa-star"></i> ${course.rating}</div>
-                            </div>
-                            <h3 class="course-title">${course.name}</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">${course.topics}</p>
-                            <a href="${course.syllabusUrl}" target="_blank" class="syllabus-link">
-                                <i class="fa-solid fa-file-pdf"></i> View Syllabus PDF
-                            </a>
-                        </div>
-                        <div>
-                            <div class="course-footer">
-                                <div class="course-duration"><i class="fa-regular fa-clock"></i> ${course.duration}</div>
-                                <div class="course-price">${course.price}</div>
-                            </div>
-                            <button onclick="selectCourseAndScroll('${course.name}')" class="btn btn-primary">Register Now</button>
-                        </div>
+    }
+    alert(data){
+        try{
+            const alertId = "custom-alert";
+            const alertHTML = `
+                <section class="blbg" id="${alertId}">
+                    <div class="alert ${data?.error>=200 && data?.error<= 299?'alert-success':data?.error>=400 && data?.error <= 600?'alert-warning':'alert-danger'}" role="alert">
+                        <h4 class="alert-heading">${data?.error>=200 && data?.error<= 299?'Success':'Error'}: ${data?.error} 
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="document.getElementById('${alertId}').remove(); ${data?.mute!=true ?'window.location.reload()':''};">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </h4>
+                        <p>${data?.message}</p>
+                        <hr>
+                        <p class="mb-0">If you see this message rapidly or unexpected way then please <a href="mailto:info.aidictionary24x7@gmail.com?subject=Unexpected%20Dialog%20popup%20coming%20in%20SAIT">contact us</a>.</p>
                     </div>
-                `;
-                container.insertAdjacentHTML('beforeend', cardHTML);
-
-                // Populate Select Dropdown
-                const option = document.createElement('option');
-                option.value = course.name;
-                option.textContent = course.name;
-                selectDropdown.appendChild(option);
-            });
+                </section>`;
+            document.body.insertAdjacentHTML("beforeend", alertHTML);
+        }catch(e){
+            alert("Somthin went wrong! \n", e, String(data));
         }
+    }
+    encoder(plain_txt, key){
+        const vocabulary = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@!*+#%$&^,|?/";
+        let cipher = "";
+        key = key.repeat(Math.ceil(plain_txt.length / key.length));
 
-        // Helper: Select Course from Card Click
-        function selectCourseAndScroll(courseName) {
-            const selectDropdown = document.getElementById('preferredCourse');
-            selectDropdown.value = courseName;
-            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // 3. Mobile Navigation Toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // 4. Form Validation & Fetch Submission
-        const form = document.getElementById('registration-form');
-        const alertBox = document.getElementById('alert-box');
-        const submitBtn = document.getElementById('submit-btn');
-        const btnText = document.getElementById('btn-text');
-
-        // Regex Patterns
-        const nameRegex = /^(?=.{7,50}$)([a-zA-Z]{3,}\s+){1,2}[a-zA-Z]{3,}$/;
-        const emailRegex = /^[\w.-]+@[\w.-]+\.\w{2,}$/;
-        const phoneRegex = /^[0-9]{10}$/;
-        const textRegex = /^[A-Za-z0-9\s\-+,#@$&.:;!?]{5,250}$/;
-
-        function showAlert(status, type, message='') {
-            alertBox.style.display = 'block';
-            alertBox.textContent = status || message;
-            if(type === 'success') {
-                alertBox.className = 'alert-box alert-success';
+        for(let i = 0; i < plain_txt.length; i++){
+            let plain_txtIndex = vocabulary.indexOf(plain_txt[i]);
+            let keyIndex = vocabulary.indexOf(key[i]);
+            if(plain_txtIndex !== -1 && keyIndex !== -1){
+                let newIndex = (plain_txtIndex + keyIndex) % vocabulary.length;
+                cipher += vocabulary[newIndex];
             } else {
-                alertBox.className = 'alert-box alert-error';
+                cipher += plain_txt[i];
             }
-            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            alertBox.style.display = 'none';
-
-            // Sanitize & Gather Data
-            const formData = {
-                studentName: document.getElementById('studentName').value.trim(),
-                parentName: document.getElementById('parentName').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                state: document.getElementById('state').value,
-                classSem: document.getElementById('classSem').value.trim(),
-                schoolCollege: document.getElementById('schoolCollege').value.trim(),
-                boardUniv: document.getElementById('boardUniv').value.trim(),
-                preferredCourse: document.getElementById('preferredCourse').value
-            };
-
-            // Basic Validation Tests
-            if(!nameRegex.test(formData.studentName)) {
-                showAlert('Please enter a valid Student name for register on our records..', 'error');
-                return;
+        return cipher;
+    }
+    objEncoder(obj, key='1441'){
+        const encrypted = {};
+        for (let field in obj) {
+            const value = String(obj[field]);
+            encrypted[field] = this.encoder(value, key);
+        }
+        return encrypted;
+    }
+    copy(id){
+        const textToCopy = document.querySelector(id);
+        const tempTextarea = document.createElement("textarea");
+        tempTextarea.value = textToCopy.textContent;
+        document.body.appendChild(tempTextarea);
+        tempTextarea.select();
+        tempTextarea.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        document.body.removeChild(tempTextarea);
+        alert("Text has been copied to the clipboard!");
+    }
+    search(search_input_id, sample_space_class, type='list-item', search_key=''){
+        let find = 0;
+        let miss=0;
+        let input = search_key==''?document.getElementById(`${search_input_id}`).value:search_key;
+        input = input.toLowerCase();
+        let x = document.getElementsByClassName(`${sample_space_class}`);
+        for(let i = 0; i<x.length; i++){ 
+            if(!x[i].textContent.toLowerCase().includes(input)){
+                x[i].style.display = "none";
+                miss++;
+            }else{
+                x[i].style.display = type; //list-item
+                find++;
             }
-            
-            if(!nameRegex.test(formData.parentName)) {
-                showAlert('Please enter a valid Parent name for register on our records..', 'error');
-                return;
+        }
+        if(miss>find && find==0 && miss!=0){
+            document.getElementById(search_input_id+'DOD').style.display = "block";
+        }else{
+            document.getElementById(search_input_id+'DOD').style.display = "none";
+        }
+    }
+
+    async getLegalContent(viewId = 0){
+        try{
+            const response = await fetch('/security', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'text/html'
+                },
+                body: JSON.stringify({ view: viewId }),
+
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server responded with status ${response.status}`);
             }
-            
-            if(!phoneRegex.test(formData.phone)) {
-                showAlert('Please enter a valid 10-digit phone/WhatsApp number.', 'error');
-                return;
+
+            const htmlContent = await response.text();
+            const blbgDiv = document.createElement('div');
+            blbgDiv.className = 'blbg';
+            const legalSection = document.createElement('section');
+            legalSection.id = 'legalDoc';
+            blbgDiv.appendChild(legalSection);
+            legalSection.innerHTML = htmlContent;
+
+            document.body.appendChild(blbgDiv);
+
+            if(viewId>1){
+                document.querySelector('.license').innerText = document.querySelector('.license').textContent;
             }
-
-            if(!emailRegex.test(formData.email)) {
-                showAlert('Please enter a valid email address.', 'error');
-                return;
-            }
-            
-            if(!textRegex.test(formData.schoolCollege) || !textRegex.test(formData.boardUniv)) {
-                showAlert('Please enter a valid Institute name for better student information analysis.', 'error');
-                return;
-            }
-
-            // Set Loading State
-            submitBtn.disabled = true;
-            btnText.textContent = 'Submitting...';
-
-            try {
-                const response = await fetch('/reg', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                let data = await response.json();
-
-                if (response.ok || response.status === 200) {
-                    showAlert(data.message, 'success', "Registration Successful!");
-                    form.reset();
-                } else {
-                    showAlert(data.message, 'error', 'Failed to submit registration. Please try again or contact support.');
-                }
-            } catch (error) {
-                console.error('Submission Error:', error);
-                showAlert('Network error occurred. Please check your internet connection and try again.', 'error');
-            } finally {
-                submitBtn.disabled = false;
-                btnText.textContent = 'Complete Registration';
+        }catch(error){
+            console.error('Error fetching legal content:', error);
+            this.alert({'error': 500, 'message': "Failed to load the security content due to some unexpted error. Please try again some time later."})
+        }
+    }
+    closeLegalContent(){
+        const blbgElements = document.querySelectorAll('.blbg');
+        blbgElements.forEach(el => {
+            if (el.querySelector('#legalDoc')) {
+                el.remove();
             }
         });
+    }
+}
 
-        // Initialize Page
-        document.addEventListener('DOMContentLoaded', () => {
-            renderCourses();
-        });
+let system;
+document.addEventListener("DOMContentLoaded",() => {
+    system = new System();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (window.self !== window.top || urlParams.get('fromApp') === 'sankhyai') {
+        const style = document.createElement('style');
+        style.textContent = `
+        body { width: 100%; overflow: hidden !important; }
+        
+        `;
+        document.head.appendChild(style);
+        console.log("App container layout styles applied natively by the server.");
+    }
+});
+
+function route(link) {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const fromApp = params.get('fromApp');
+
+    if (token) {
+        try {
+            const urlObj = new URL(link, window.location.origin);
+            
+            urlObj.searchParams.set('token', token);
+            if (fromApp) {
+                urlObj.searchParams.set('fromApp', fromApp);
+            }
+            
+            link = urlObj.pathname + urlObj.search + urlObj.hash;
+        } catch (e) {
+            const separator = link.includes('?') ? '&' : '?';
+            link = link + separator + "token=" + encodeURIComponent(token);
+            if (fromApp) link = link + "&fromApp=" + encodeURIComponent(fromApp);
+        }
+    }
+    
+    window.location.href = link;
+}
+
+
+
+function invalid(){
+    alert("This feature is not present on this version or you are not permitted to access this resource from this site, Please wait until the new version release or contact us for permission");
+}
+
