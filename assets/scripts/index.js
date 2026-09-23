@@ -122,10 +122,12 @@
                 container.insertAdjacentHTML('beforeend', cardHTML);
 
                 // Populate Select Dropdown
-                const option = document.createElement('option');
-                option.value = course.name;
-                option.textContent = course.name;
-                selectDropdown.appendChild(option);
+                if(course.id > 6){
+                    const option = document.createElement('option');
+                    option.value = course.name;
+                    option.textContent = course.name;
+                    selectDropdown.appendChild(option);
+                }
             });
         }
 
