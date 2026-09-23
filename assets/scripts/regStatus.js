@@ -42,7 +42,7 @@ function generatePDF() {
     // Temporarily i reset body styling for clean PDF capture
     const originalBodyStyle = document.body.style.cssText;
     document.body.style.display = 'block';
-    document.body.style.padding = '5px auto';
+    document.body.style.padding = '10px auto';
     document.body.style.minHeight = 'auto';
 
     html2pdf().set(opt).from(element).save().then(() => {

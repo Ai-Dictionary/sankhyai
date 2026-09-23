@@ -6,7 +6,7 @@
                 badge: "Tech",
                 type: "badge-tech",
                 duration: "12 Weeks",
-                price: "₹4,999",
+                price: "₹x,xxx",
                 rating: "4.9",
                 syllabusUrl: "https://docs.google.com/document/u/0/",
                 topics: "RESTful APIs, Node.js, Express, Microservices, MongoDB & PostgreSQL integration."
@@ -17,7 +17,7 @@
                 badge: "Tech",
                 type: "badge-tech",
                 duration: "16 Weeks",
-                price: "₹6,999",
+                price: "₹x,xxx",
                 rating: "5.0",
                 syllabusUrl: "https://docs.google.com/document/u/0/",
                 topics: "Neural Networks, PyTorch, Scikit-Learn, Model Deployment, LLM Fine-tuning."
@@ -28,7 +28,7 @@
                 badge: "Tech",
                 type: "badge-tech",
                 duration: "4 Weeks",
-                price: "₹1,999",
+                price: "₹x,xxx",
                 rating: "4.8",
                 syllabusUrl: "https://docs.google.com/document/u/0/",
                 topics: "Prompt Engineering, ChatGPT Workflows, Midjourney, Automation with Zapier/Make."
@@ -39,7 +39,7 @@
                 badge: "Tech",
                 type: "badge-tech",
                 duration: "6 Weeks",
-                price: "₹1,499",
+                price: "₹x,xxx",
                 rating: "4.7",
                 syllabusUrl: "https://docs.google.com/document/u/0/",
                 topics: "Memory allocation, Pointers, Structures, Data Structures & Logic building."
@@ -50,7 +50,7 @@
                 badge: "Tech",
                 type: "badge-tech",
                 duration: "6 Weeks",
-                price: "₹1,999",
+                price: "₹x,xxx",
                 rating: "4.8",
                 syllabusUrl: "https://docs.google.com/document/u/0/",
                 topics: "Syntax, Data Types, Control Structures, OOPs concepts, Module imports."
@@ -61,7 +61,7 @@
                 badge: "Tech",
                 type: "badge-tech",
                 duration: "8 Weeks",
-                price: "₹3,499",
+                price: "₹x,xxx",
                 rating: "4.9",
                 syllabusUrl: "https://docs.google.com/document/u/0/",
                 topics: "Decorators, Generators, AsyncIO, Web Scraping, Frameworks (FastAPI/Django)."
