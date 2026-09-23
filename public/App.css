@@ -315,6 +315,7 @@ ul {
     justify-content: space-between;
     transition: var(--transition);
     position: relative;
+    overflow: hidden;
 }
 
 .course-card:hover {
