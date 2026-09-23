@@ -324,11 +324,19 @@ ul {
 }
 
 .blur-card::before{
-    content: " ";
+    content: "Coming Soon..";
     width: 100%;
     height: 100%;
-    background: #c7c6c69a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+    background: #eeeded83;
     backdrop-filter: blur(4px);
+    text-align: center;
+    padding-top: 40%;
+    font-size: 25px;
+    font-weight: bold;
     cursor: progress;
 }
 
