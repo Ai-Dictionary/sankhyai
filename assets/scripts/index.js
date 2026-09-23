@@ -98,7 +98,7 @@
             coursesData.forEach(course => {
                 // Populate Cards
                 const cardHTML = `
-                    <div class="course-card">
+                    <div class="course-card ${course.id < 7 ? 'blur-card' : ''}">
                         <div>
                             <div class="course-header">
                                 <span class="badge ${course.type}">${course.badge}</span>
